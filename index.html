@@ -18,6 +18,53 @@ button:hover { background-color: #005fa3; }
 </head>
 <body>
 
+<script>
+// Formula to calculate a player's trade value
+function playerValue(player) {
+  const { overall, age, salary } = player;
+  return overall * ((45 - age) / (0.1 * salary));
+}
+
+// Evaluate trade between Team A and Team B
+function evaluateTrade() {
+  const teamAPlayerSelect = document.getElementById("teamAPlayerSelect");
+  const teamBPlayerSelect = document.getElementById("teamBPlayerSelect");
+
+  const teamAPlayer = JSON.parse(teamAPlayerSelect.value);
+  const teamBPlayer = JSON.parse(teamBPlayerSelect.value);
+
+  const totalA = playerValue(teamAPlayer);
+  const totalB = playerValue(teamBPlayer);
+
+  let result = "";
+  const diff = Math.abs(totalA - totalB);
+
+  if (diff < 0.1) result = "Fair Trade!";
+  else if (totalA > totalB) result = `Team A gets better value! (A: ${totalA.toFixed(2)} vs B: ${totalB.toFixed(2)})`;
+  else result = `Team B gets better value! (A: ${totalA.toFixed(2)} vs B: ${totalB.toFixed(2)})`;
+
+  document.getElementById("tradeResult").innerText = result;
+}
+
+// Hook the evaluate button
+document.querySelector("button[onclick*='Evaluate Trade']").addEventListener("click", evaluateTrade);
+
+// Placeholder for coaching simulator
+function simulateMatch() {
+  const team = document.getElementById("coachTeam").value;
+  const tactics = document.getElementById("tactics").value;
+  const attack = parseInt(document.getElementById("playerAttack").value) || 0;
+  const defence = parseInt(document.getElementById("playerDefence").value) || 0;
+  const speed = parseInt(document.getElementById("playerSpeed").value) || 0;
+
+  // Simple simulation formula (expand later)
+  const score = attack * 0.5 + defence * 0.3 + speed * 0.2;
+  document.getElementById("coachingResult").innerText = `${team} (${tactics}) projected score: ${score.toFixed(1)}`;
+}
+
+document.querySelector("button[onclick*='Coaching simulation']").addEventListener("click", simulateMatch);
+</script>
+
 <div class="container">
 <h1>AFL Trade Machine - My League Style</h1>
 
