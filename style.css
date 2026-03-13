@@ -1,16 +1,284 @@
+```css
+/* ============================
+GENERAL PAGE STYLE
+============================ */
+
 body{
-font-family: Arial;
-text-align:center;
-}
-
-.trade-container{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background-color:#0f172a;
+color:white;
 display:flex;
-justify-content:center;
-gap:50px;
-margin:40px;
 }
 
-input{
-padding:8px;
+
+/* ============================
+SIDEBAR
+============================ */
+
+#sidebar{
+width:230px;
+height:100vh;
+background-color:#111827;
+padding:20px;
+box-sizing:border-box;
+display:flex;
+flex-direction:column;
+gap:10px;
+border-right:2px solid #1f2937;
+}
+
+#sidebar h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+#sidebar button{
+background-color:#1f2937;
+color:white;
+border:none;
+padding:12px;
+cursor:pointer;
+border-radius:6px;
+font-size:14px;
+transition:0.2s;
+}
+
+#sidebar button:hover{
+background-color:#374151;
+}
+
+
+/* ============================
+MAIN CONTENT
+============================ */
+
+#mainContent{
+flex:1;
+padding:30px;
+overflow-y:auto;
+}
+
+section{
+margin-bottom:60px;
+}
+
+
+/* ============================
+HEADINGS
+============================ */
+
+h1{
+margin-top:0;
+font-size:30px;
+border-bottom:2px solid #334155;
+padding-bottom:10px;
+}
+
+h3{
+margin-top:25px;
+}
+
+
+/* ============================
+TABLES
+============================ */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+background-color:#1e293b;
+}
+
+th{
+background-color:#334155;
+padding:10px;
+text-align:left;
+font-size:14px;
+}
+
+td{
+padding:10px;
+border-top:1px solid #475569;
+font-size:14px;
+}
+
+tr:hover{
+background-color:#334155;
+}
+
+
+/* ============================
+LINEUP GRID
+============================ */
+
+#lineupPage div{
+
+display:flex;
+gap:20px;
+margin-bottom:15px;
+background-color:#1e293b;
+padding:15px;
+border-radius:8px;
+
+}
+
+
+/* ============================
+BENCH / RESERVES
+============================ */
+
+#lineupPage h3{
+margin-top:30px;
+}
+
+
+/* ============================
+INJURED / SUSPENDED PLAYERS
+============================ */
+
+.unavailable{
+color:#ef4444;
+font-weight:bold;
+}
+
+
+/* ============================
+TACTICS PAGE
+============================ */
+
+#tacticsPage select{
+padding:10px;
+margin-top:5px;
+margin-bottom:15px;
+border-radius:6px;
+border:none;
+background:#1e293b;
+color:white;
+width:250px;
+}
+
+#tacticsPage label{
+display:block;
 margin-top:10px;
 }
+
+
+/* ============================
+TRADE MACHINE
+============================ */
+
+#tradePage{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+max-width:700px;
+}
+
+#tradePage select{
+width:100%;
+padding:10px;
+margin-top:5px;
+margin-bottom:15px;
+border-radius:6px;
+border:none;
+background:#0f172a;
+color:white;
+}
+
+#tradePage button{
+padding:12px 20px;
+background:#22c55e;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+}
+
+#tradePage button:hover{
+background:#16a34a;
+}
+
+
+/* ============================
+COACHING PAGE
+============================ */
+
+#coachingPage table{
+max-width:800px;
+}
+
+
+/* ============================
+DRAFT PAGE
+============================ */
+
+#draftPage table{
+max-width:700px;
+}
+
+
+/* ============================
+FINAL SERIES
+============================ */
+
+#finalsPage{
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+max-width:900px;
+}
+
+
+/* ============================
+BUTTON STYLING
+============================ */
+
+button{
+font-family:inherit;
+}
+
+
+/* ============================
+SCROLLBAR
+============================ */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-track{
+background:#0f172a;
+}
+
+::-webkit-scrollbar-thumb{
+background:#334155;
+border-radius:5px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+background:#475569;
+}
+
+
+/* ============================
+RESPONSIVE DESIGN
+============================ */
+
+@media(max-width:900px){
+
+#sidebar{
+width:180px;
+}
+
+#lineupPage div{
+flex-direction:column;
+}
+
+table{
+font-size:12px;
+}
+
+}
+```
