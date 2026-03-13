@@ -1,174 +1,351 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AFL Trade Machine - Full Stats</title>
-<style>
-body { font-family: Arial, sans-serif; background-color: #f3f3f3; margin:0; padding:0; text-align: center; }
-h1, h2 { color: #222; }
-.container { max-width: 1400px; margin: 20px auto; padding: 10px; }
-.team-selection { display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px; }
-.team-box { width: 90%; max-width: 650px; background-color: white; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); text-align: left; }
-select, input { display: block; margin: 10px 0; padding: 8px; width: 100%; border-radius: 5px; border: 1px solid #ccc; }
-button { padding: 10px 20px; margin: 10px 0; font-size: 16px; border-radius: 5px; cursor: pointer; border: none; background-color: #0077cc; color: white; }
-button:hover { background-color: #005fa3; }
-#tradeResult, #coachingResult { font-weight: bold; margin-top: 20px; font-size: 18px; }
-.stats-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
-.stats-box label { font-weight: bold; }
-</style>
+<title>AFL Career Mode Simulator</title>
 </head>
+
 <body>
 
-<div class="container">
-<h1>AFL Trade Machine - Full Player Stats</h1>
+<!-- SIDEBAR NAVIGATION -->
 
-<!-- TEAM SELECTION AND PLAYERS -->
-<div class="team-selection">
+<nav id="sidebar">
 
-  <!-- TEAM A -->
-  <div class="team-box">
-    <h2>Team A</h2>
-    <select id="teamASelect">
-      <option value="">Select Team</option>
-      <option value="Adelaide">Adelaide</option>
-      <option value="Brisbane">Brisbane</option>
-      <option value="Carlton">Carlton</option>
-      <option value="Collingwood">Collingwood</option>
-      <option value="Essendon">Essendon</option>
-      <option value="Fremantle">Fremantle</option>
-      <option value="Geelong">Geelong</option>
-      <option value="Gold Coast">Gold Coast</option>
-      <option value="GWS">GWS</option>
-      <option value="Hawthorn">Hawthorn</option>
-      <option value="Melbourne">Melbourne</option>
-      <option value="North Melbourne">North Melbourne</option>
-      <option value="Port Adelaide">Port Adelaide</option>
-      <option value="Richmond">Richmond</option>
-      <option value="St Kilda">St Kilda</option>
-      <option value="Sydney">Sydney</option>
-      <option value="West Coast">West Coast</option>
-      <option value="Western Bulldogs">Western Bulldogs</option>
-    </select>
+<h2>Career Mode</h2>
 
-    <h3>Player</h3>
-    <select id="teamAPlayerSelect">
-      <option value='{"name":"Taylor Walker","age":30,"overall":88,"salary":850000,"team":"Adelaide","kick":88,"handball":85,"mark":90,"tackle":82,"speed":80,"stamina":85,"footyIQ":87,"clutch":86,"strength":88,"discipline":90}'>Taylor Walker - Adelaide</option>
-      <option value='{"name":"Dayne Zorko","age":29,"overall":87,"salary":830000,"team":"Brisbane","kick":85,"handball":87,"mark":83,"tackle":84,"speed":81,"stamina":86,"footyIQ":85,"clutch":88,"strength":82,"discipline":87}'>Dayne Zorko - Brisbane</option>
-      <option value='{"name":"Patrick Cripps","age":27,"overall":92,"salary":900000,"team":"Carlton","kick":90,"handball":91,"mark":88,"tackle":89,"speed":85,"stamina":88,"footyIQ":92,"clutch":90,"strength":87,"discipline":89}'>Patrick Cripps - Carlton</option>
-      <option value='{"name":"Nick Daicos","age":21,"overall":95,"salary":950000,"team":"Collingwood","kick":94,"handball":93,"mark":92,"tackle":90,"speed":91,"stamina":92,"footyIQ":95,"clutch":94,"strength":88,"discipline":92}'>Nick Daicos - Collingwood</option>
-      <option value='{"name":"Zach Merrett","age":26,"overall":90,"salary":870000,"team":"Essendon","kick":88,"handball":87,"mark":85,"tackle":86,"speed":83,"stamina":88,"footyIQ":90,"clutch":87,"strength":85,"discipline":88}'>Zach Merrett - Essendon</option>
-      <!-- Add remaining players here following same structure -->
-    </select>
+<button>Home</button>
+<button>Fixture / Results</button>
+<button>Team Lineup</button>
+<button>Team Tactics</button>
+<button>Coaching</button>
+<button>Drafting</button>
+<button>Free Agency</button>
+<button>Trade</button>
+<button>Team Stats</button>
+<button>Player Stats</button>
+<button>Awards</button>
+<button>Finals</button>
 
-    <div class="stats-box">
-      <label>Kick:</label> <span id="teamA_kick">-</span>
-      <label>Handball:</label> <span id="teamA_handball">-</span>
-      <label>Mark:</label> <span id="teamA_mark">-</span>
-      <label>Tackle:</label> <span id="teamA_tackle">-</span>
-      <label>Speed:</label> <span id="teamA_speed">-</span>
-      <label>Stamina:</label> <span id="teamA_stamina">-</span>
-      <label>Footy IQ:</label> <span id="teamA_footyIQ">-</span>
-      <label>Clutch:</label> <span id="teamA_clutch">-</span>
-      <label>Strength:</label> <span id="teamA_strength">-</span>
-      <label>Discipline:</label> <span id="teamA_discipline">-</span>
-    </div>
-  </div>
+</nav>
 
-  <!-- TEAM B -->
-  <div class="team-box">
-    <h2>Team B</h2>
-    <select id="teamBSelect">
-      <option value="">Select Team</option>
-      <option value="Adelaide">Adelaide</option>
-      <option value="Brisbane">Brisbane</option>
-      <option value="Carlton">Carlton</option>
-      <option value="Collingwood">Collingwood</option>
-      <option value="Essendon">Essendon</option>
-      <option value="Fremantle">Fremantle</option>
-      <option value="Geelong">Geelong</option>
-      <option value="Gold Coast">Gold Coast</option>
-      <option value="GWS">GWS</option>
-      <option value="Hawthorn">Hawthorn</option>
-      <option value="Melbourne">Melbourne</option>
-      <option value="North Melbourne">North Melbourne</option>
-      <option value="Port Adelaide">Port Adelaide</option>
-      <option value="Richmond">Richmond</option>
-      <option value="St Kilda">St Kilda</option>
-      <option value="Sydney">Sydney</option>
-      <option value="West Coast">West Coast</option>
-      <option value="Western Bulldogs">Western Bulldogs</option>
-    </select>
 
-    <h3>Player</h3>
-    <select id="teamBPlayerSelect">
-      <option value='{"name":"Taylor Walker","age":30,"overall":88,"salary":850000,"team":"Adelaide","kick":88,"handball":85,"mark":90,"tackle":82,"speed":80,"stamina":85,"footyIQ":87,"clutch":86,"strength":88,"discipline":90}'>Taylor Walker - Adelaide</option>
-      <option value='{"name":"Dayne Zorko","age":29,"overall":87,"salary":830000,"team":"Brisbane","kick":85,"handball":87,"mark":83,"tackle":84,"speed":81,"stamina":86,"footyIQ":85,"clutch":88,"strength":82,"discipline":87}'>Dayne Zorko - Brisbane</option>
-      <option value='{"name":"Patrick Cripps","age":27,"overall":92,"salary":900000,"team":"Carlton","kick":90,"handball":91,"mark":88,"tackle":89,"speed":85,"stamina":88,"footyIQ":92,"clutch":90,"strength":87,"discipline":89}'>Patrick Cripps - Carlton</option>
-      <option value='{"name":"Nick Daicos","age":21,"overall":95,"salary":950000,"team":"Collingwood","kick":94,"handball":93,"mark":92,"tackle":90,"speed":91,"stamina":92,"footyIQ":95,"clutch":94,"strength":88,"discipline":92}'>Nick Daicos - Collingwood</option>
-      <option value='{"name":"Zach Merrett","age":26,"overall":90,"salary":870000,"team":"Essendon","kick":88,"handball":87,"mark":85,"tackle":86,"speed":83,"stamina":88,"footyIQ":90,"clutch":87,"strength":85,"discipline":88}'>Zach Merrett - Essendon</option>
-      <!-- Add remaining players here following same structure -->
-    </select>
+<!-- MAIN CONTENT AREA -->
 
-    <div class="stats-box">
-      <label>Kick:</label> <span id="teamB_kick">-</span>
-      <label>Handball:</label> <span id="teamB_handball">-</span>
-      <label>Mark:</label> <span id="teamB_mark">-</span>
-      <label>Tackle:</label> <span id="teamB_tackle">-</span>
-      <label>Speed:</label> <span id="teamB_speed">-</span>
-      <label>Stamina:</label> <span id="teamB_stamina">-</label>
-      <label>Footy IQ:</label> <span id="teamB_footyIQ">-</span>
-      <label>Clutch:</label> <span id="teamB_clutch">-</span>
-      <label>Strength:</label> <span id="teamB_strength">-</span>
-      <label>Discipline:</label> <span id="teamB_discipline">-</span>
-    </div>
-  </div>
+<main id="mainContent">
 
-</div>
+<!-- HOME PAGE -->
 
-<button onclick="alert('Trade evaluation JS will go here')">Evaluate Trade</button>
-<div id="tradeResult"></div>
+<section id="homePage">
 
-<!-- COACHING SIMULATOR -->
-<div class="team-box" style="margin:20px auto;">
-<h2>Coaching Simulator</h2>
-<label>Pick a Team:</label>
-<select id="coachTeam">
-  <option value="">Select Team</option>
-  <option value="Adelaide">Adelaide</option>
-  <option value="Brisbane">Brisbane</option>
-  <option value="Carlton">Carlton</option>
-  <option value="Collingwood">Collingwood</option>
-  <option value="Essendon">Essendon</option>
-  <option value="Fremantle">Fremantle</option>
-  <option value="Geelong">Geelong</option>
-  <option value="Gold Coast">Gold Coast</option>
-  <option value="GWS">GWS</option>
-  <option value="Hawthorn">Hawthorn</option>
-  <option value="Melbourne">Melbourne</option>
-  <option value="North Melbourne">North Melbourne</option>
-  <option value="Port Adelaide">Port Adelaide</option>
-  <option value="Richmond">Richmond</option>
-  <option value="St Kilda">St Kilda</option>
-  <option value="Sydney">Sydney</option>
-  <option value="West Coast">West Coast</option>
-  <option value="Western Bulldogs">Western Bulldogs</option>
+<h1>Home</h1>
+
+<h3>Your Team</h3>
+<p id="selectedTeam">Adelaide Crows</p>
+
+<h3>Season Record</h3>
+<p>Wins: 0 | Losses: 0 | Draws: 0</p>
+
+<h3>Next Match</h3>
+<p>Adelaide vs Brisbane</p>
+
+<h3>AFL Ladder</h3>
+
+<table border="1">
+<tr>
+<th>Position</th>
+<th>Team</th>
+<th>W</th>
+<th>L</th>
+<th>Points</th>
+<th>%</th>
+</tr>
+
+<tr><td>1</td><td>Adelaide</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>2</td><td>Brisbane</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>3</td><td>Carlton</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>4</td><td>Collingwood</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>5</td><td>Essendon</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>6</td><td>Fremantle</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>7</td><td>Geelong</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>8</td><td>Gold Coast</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>9</td><td>GWS</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>10</td><td>Hawthorn</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>11</td><td>Melbourne</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>12</td><td>North Melbourne</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>13</td><td>Port Adelaide</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>14</td><td>Richmond</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>15</td><td>St Kilda</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>16</td><td>Sydney</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>17</td><td>West Coast</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+<tr><td>18</td><td>Western Bulldogs</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
+
+</table>
+
+</section>
+
+
+
+<!-- FIXTURE / RESULTS -->
+
+<section id="fixturePage">
+
+<h1>Fixture / Results</h1>
+
+<button>Previous Round</button>
+<span>Round 1</span>
+<button>Next Round</button>
+
+<table border="1">
+
+<tr>
+<th>Home</th>
+<th>Away</th>
+<th>Score</th>
+</tr>
+
+<tr><td>Adelaide</td><td>Brisbane</td><td>-</td></tr>
+<tr><td>Carlton</td><td>Collingwood</td><td>-</td></tr>
+<tr><td>Essendon</td><td>Fremantle</td><td>-</td></tr>
+
+</table>
+
+</section>
+
+
+
+<!-- TEAM LINEUP -->
+
+<section id="lineupPage">
+
+<h1>Team Lineup</h1>
+
+<h3>Full Back Line</h3>
+<div>Player 1 | Player 2 | Player 3</div>
+
+<h3>Half Back Line</h3>
+<div>Player 4 | Player 5 | Player 6</div>
+
+<h3>Midfield</h3>
+<div>Player 7 | Player 8 | Player 9</div>
+
+<h3>Half Forward</h3>
+<div>Player 10 | Player 11 | Player 12</div>
+
+<h3>Full Forward</h3>
+<div>Player 13 | Player 14 | Player 15</div>
+
+<h3>Followers</h3>
+<div>Player 16 | Player 17 | Player 18</div>
+
+<h3>Bench</h3>
+<div>Player 19 | Player 20 | Player 21 | Player 22 | Player 23</div>
+
+<h3>Reserves</h3>
+<div>Player A | Player B | Player C</div>
+
+<h3>Unavailable (Injured / Suspended)</h3>
+<div>Player X</div>
+
+</section>
+
+
+
+<!-- TEAM TACTICS -->
+
+<section id="tacticsPage">
+
+<h1>Team Tactics</h1>
+
+<h3>Game Speed</h3>
+<select>
+<option>Reserved</option>
+<option>Balanced</option>
+<option>Attacking</option>
 </select>
 
-<label>Select Tactics:</label>
-<select id="tactics">
-  <option value="attack">Attack</option>
-  <option value="defence">Defence</option>
-  <option value="pressure">Pressure</option>
+<h3>Ball Movement</h3>
+<select>
+<option>Wide</option>
+<option>Balanced</option>
+<option>Narrow</option>
 </select>
 
-<input type="number" id="playerAttack" placeholder="Team attack (0-100)">
-<input type="number" id="playerDefence" placeholder="Team defence (0-100)">
-<input type="number" id="playerSpeed" placeholder="Team speed (0-100)">
-<button onclick="alert('Coaching simulation JS goes here')">Simulate Match</button>
-<div id="coachingResult"></div>
-</div>
+<label>
+<input type="checkbox">
+Play Spare
+</label>
 
-</div>
+<h3>Leadership</h3>
+
+Captain:
+<select>
+<option>Adelaide Player</option>
+</select>
+
+Kickouts:
+<select>
+<option>Adelaide Player</option>
+</select>
+
+Backup Rucks:
+<select>
+<option>Adelaide Player</option>
+</select>
+
+Tagger:
+<select>
+<option>None</option>
+<option>Adelaide Player</option>
+</select>
+
+</section>
+
+
+
+<!-- COACHING -->
+
+<section id="coachingPage">
+
+<h1>Coaching Staff</h1>
+
+<table border="1">
+
+<tr>
+<th>Role</th>
+<th>Name</th>
+<th>Offence</th>
+<th>Defence</th>
+<th>Mindset</th>
+</tr>
+
+<tr><td>Head Coach</td><td>Coach 1</td><td>80</td><td>75</td><td>Aggressive</td></tr>
+<tr><td>Assistant Coach</td><td>Coach 2</td><td>70</td><td>70</td><td>Balanced</td></tr>
+<tr><td>Doctor</td><td>Doctor 1</td><td>60</td><td>60</td><td>Defensive</td></tr>
+
+</table>
+
+</section>
+
+
+
+<!-- DRAFTING -->
+
+<section id="draftPage">
+
+<h1>Draft Prospects</h1>
+
+<table border="1">
+
+<tr>
+<th>Name</th>
+<th>Position</th>
+<th>Scouted Info</th>
+</tr>
+
+<tr><td>Prospect 1</td><td>Mid</td><td>Unknown</td></tr>
+
+</table>
+
+</section>
+
+
+
+<!-- FREE AGENCY -->
+
+<section id="freeAgencyPage">
+
+<h1>Free Agency</h1>
+
+<p>Re-sign players or sign available free agents during offseason.</p>
+
+</section>
+
+
+
+<!-- TRADE MACHINE -->
+
+<section id="tradePage">
+
+<h1>Trade Machine</h1>
+
+<h3>Team A</h3>
+<select>
+<option>Adelaide Player</option>
+</select>
+
+<h3>Team B</h3>
+<select>
+<option>Brisbane Player</option>
+</select>
+
+<button>Evaluate Trade</button>
+
+</section>
+
+
+
+<!-- TEAM STATS -->
+
+<section id="teamStatsPage">
+
+<h1>Team Stats</h1>
+
+<button>Sort By Points For</button>
+<button>Sort By Points Against</button>
+<button>Sort By Percentage</button>
+
+</section>
+
+
+
+<!-- PLAYER STATS -->
+
+<section id="playerStatsPage">
+
+<h1>Player Stats</h1>
+
+<p>Your Team Players</p>
+
+<p>League Leaders</p>
+
+</section>
+
+
+
+<!-- AWARDS -->
+
+<section id="awardsPage">
+
+<h1>Awards</h1>
+
+<ul>
+
+<li>Brownlow Medal</li>
+<li>Coleman Medal</li>
+<li>Norm Smith Medal</li>
+
+</ul>
+
+</section>
+
+
+
+<!-- FINALS -->
+
+<section id="finalsPage">
+
+<h1>Finals Series</h1>
+
+<p>Finals Bracket</p>
+
+</section>
+
+
+
+</main>
+
 </body>
 </html>
+```
