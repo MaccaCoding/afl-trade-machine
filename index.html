@@ -1,8 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>AFL Trade Machine</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f3f3f3;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    .trade-container {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin: 40px;
+    }
+
+    .team-box {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+
+    select, input {
+      display: block;
+      margin: 10px auto;
+      padding: 8px;
+      width: 150px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+  </style>
 </head>
 
 <body>
@@ -11,27 +65,25 @@
 
 <div class="trade-container">
 
-<div>
-<h2>Team A</h2>
-<select id="teamA">
-<option>Collingwood</option>
-<option>Carlton</option>
-<option>Richmond</option>
-</select>
+  <div class="team-box">
+    <h2>Team A</h2>
+    <select id="teamA">
+      <option value="Collingwood">Collingwood</option>
+      <option value="Carlton">Carlton</option>
+      <option value="Richmond">Richmond</option>
+    </select>
+    <input id="valueA" type="number" placeholder="Player value">
+  </div>
 
-<input id="valueA" placeholder="Player value">
-</div>
-
-<div>
-<h2>Team B</h2>
-<select id="teamB">
-<option>Carlton</option>
-<option>Collingwood</option>
-<option>Richmond</option>
-</select>
-
-<input id="valueB" placeholder="Player value">
-</div>
+  <div class="team-box">
+    <h2>Team B</h2>
+    <select id="teamB">
+      <option value="Carlton">Carlton</option>
+      <option value="Collingwood">Collingwood</option>
+      <option value="Richmond">Richmond</option>
+    </select>
+    <input id="valueB" type="number" placeholder="Player value">
+  </div>
 
 </div>
 
@@ -39,7 +91,31 @@
 
 <h2 id="result"></h2>
 
-<script src="script.js"></script>
+<script>
+  function evaluateTrade() {
+    let a = Number(document.getElementById("valueA").value);
+    let b = Number(document.getElementById("valueB").value);
+    let teamA = document.getElementById("teamA").value;
+    let teamB = document.getElementById("teamB").value;
+
+    if(isNaN(a) || isNaN(b)) {
+      document.getElementById("result").innerText = "Please enter values for both teams!";
+      return;
+    }
+
+    let diff = Math.abs(a - b);
+
+    if(diff < 10){
+      document.getElementById("result").innerText = "Fair Trade between " + teamA + " and " + teamB + "!";
+    }
+    else if(a > b){
+      document.getElementById("result").innerText = teamA + " gets the better deal!";
+    }
+    else{
+      document.getElementById("result").innerText = teamB + " gets the better deal!";
+    }
+  }
+</script>
 
 </body>
 </html>
