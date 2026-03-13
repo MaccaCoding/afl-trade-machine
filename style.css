@@ -1,0 +1,16 @@
+body{
+font-family: Arial;
+text-align:center;
+}
+
+.trade-container{
+display:flex;
+justify-content:center;
+gap:50px;
+margin:40px;
+}
+
+input{
+padding:8px;
+margin-top:10px;
+}
