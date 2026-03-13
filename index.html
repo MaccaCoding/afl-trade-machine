@@ -3,74 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AFL Trade Machine - My League Style</title>
+<title>AFL Trade Machine - Full Stats</title>
 <style>
-body { font-family: Arial, sans-serif; background-color: #f3f3f3; text-align: center; margin:0; padding:0; }
+body { font-family: Arial, sans-serif; background-color: #f3f3f3; margin:0; padding:0; text-align: center; }
 h1, h2 { color: #222; }
-.container { max-width: 1200px; margin: 20px auto; padding: 10px; }
+.container { max-width: 1400px; margin: 20px auto; padding: 10px; }
 .team-selection { display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 20px; }
-.team-box { width: 45%; background-color: white; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
-select, input { display: block; margin: 10px auto; padding: 8px; width: 200px; border-radius: 5px; border: 1px solid #ccc; }
-button { padding: 10px 20px; margin: 10px; font-size: 16px; border-radius: 5px; cursor: pointer; border: none; background-color: #0077cc; color: white; }
+.team-box { width: 90%; max-width: 650px; background-color: white; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); text-align: left; }
+select, input { display: block; margin: 10px 0; padding: 8px; width: 100%; border-radius: 5px; border: 1px solid #ccc; }
+button { padding: 10px 20px; margin: 10px 0; font-size: 16px; border-radius: 5px; cursor: pointer; border: none; background-color: #0077cc; color: white; }
 button:hover { background-color: #005fa3; }
 #tradeResult, #coachingResult { font-weight: bold; margin-top: 20px; font-size: 18px; }
+.stats-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+.stats-box label { font-weight: bold; }
 </style>
 </head>
 <body>
 
-<script>
-// Formula to calculate a player's trade value
-function playerValue(player) {
-  const { overall, age, salary } = player;
-  return overall * ((45 - age) / (0.1 * salary));
-}
-
-// Evaluate trade between Team A and Team B
-function evaluateTrade() {
-  const teamAPlayerSelect = document.getElementById("teamAPlayerSelect");
-  const teamBPlayerSelect = document.getElementById("teamBPlayerSelect");
-
-  const teamAPlayer = JSON.parse(teamAPlayerSelect.value);
-  const teamBPlayer = JSON.parse(teamBPlayerSelect.value);
-
-  const totalA = playerValue(teamAPlayer);
-  const totalB = playerValue(teamBPlayer);
-
-  let result = "";
-  const diff = Math.abs(totalA - totalB);
-
-  if (diff < 0.1) result = "Fair Trade!";
-  else if (totalA > totalB) result = `Team A gets better value! (A: ${totalA.toFixed(2)} vs B: ${totalB.toFixed(2)})`;
-  else result = `Team B gets better value! (A: ${totalA.toFixed(2)} vs B: ${totalB.toFixed(2)})`;
-
-  document.getElementById("tradeResult").innerText = result;
-}
-
-// Hook the evaluate button
-document.querySelector("button[onclick*='Evaluate Trade']").addEventListener("click", evaluateTrade);
-
-// Placeholder for coaching simulator
-function simulateMatch() {
-  const team = document.getElementById("coachTeam").value;
-  const tactics = document.getElementById("tactics").value;
-  const attack = parseInt(document.getElementById("playerAttack").value) || 0;
-  const defence = parseInt(document.getElementById("playerDefence").value) || 0;
-  const speed = parseInt(document.getElementById("playerSpeed").value) || 0;
-
-  // Simple simulation formula (expand later)
-  const score = attack * 0.5 + defence * 0.3 + speed * 0.2;
-  document.getElementById("coachingResult").innerText = `${team} (${tactics}) projected score: ${score.toFixed(1)}`;
-}
-
-document.querySelector("button[onclick*='Coaching simulation']").addEventListener("click", simulateMatch);
-</script>
-
 <div class="container">
-<h1>AFL Trade Machine - My League Style</h1>
+<h1>AFL Trade Machine - Full Player Stats</h1>
 
 <!-- TEAM SELECTION AND PLAYERS -->
 <div class="team-selection">
 
+  <!-- TEAM A -->
   <div class="team-box">
     <h2>Team A</h2>
     <select id="teamASelect">
@@ -97,29 +53,29 @@ document.querySelector("button[onclick*='Coaching simulation']").addEventListene
 
     <h3>Player</h3>
     <select id="teamAPlayerSelect">
-      <!-- One player per team -->
-      <option value='{"name":"Taylor Walker","age":30,"overall":88,"salary":850000,"team":"Adelaide"}'>Taylor Walker - Age:30 Overall:88 Salary:$850,000</option>
-      <option value='{"name":"Dayne Zorko","age":29,"overall":87,"salary":830000,"team":"Brisbane"}'>Dayne Zorko - Age:29 Overall:87 Salary:$830,000</option>
-      <option value='{"name":"Patrick Cripps","age":27,"overall":92,"salary":900000,"team":"Carlton"}'>Patrick Cripps - Age:27 Overall:92 Salary:$900,000</option>
-      <option value='{"name":"Nick Daicos","age":21,"overall":95,"salary":950000,"team":"Collingwood"}'>Nick Daicos - Age:21 Overall:95 Salary:$950,000</option>
-      <option value='{"name":"Zach Merrett","age":26,"overall":90,"salary":870000,"team":"Essendon"}'>Zach Merrett - Age:26 Overall:90 Salary:$870,000</option>
-      <option value='{"name":"Nat Fyfe","age":28,"overall":93,"salary":940000,"team":"Fremantle"}'>Nat Fyfe - Age:28 Overall:93 Salary:$940,000</option>
-      <option value='{"name":"Patrick Dangerfield","age":32,"overall":91,"salary":910000,"team":"Geelong"}'>Patrick Dangerfield - Age:32 Overall:91 Salary:$910,000</option>
-      <option value='{"name":"Taylin Duman","age":24,"overall":85,"salary":780000,"team":"Gold Coast"}'>Taylin Duman - Age:24 Overall:85 Salary:$780,000</option>
-      <option value='{"name":"Josh Kelly","age":26,"overall":89,"salary":860000,"team":"GWS"}'>Josh Kelly - Age:26 Overall:89 Salary:$860,000</option>
-      <option value='{"name":"Tom Mitchell","age":30,"overall":92,"salary":880000,"team":"Hawthorn"}'>Tom Mitchell - Age:30 Overall:92 Salary:$880,000</option>
-      <option value='{"name":"Christian Petracca","age":25,"overall":94,"salary":920000,"team":"Melbourne"}'>Christian Petracca - Age:25 Overall:94 Salary:$920,000</option>
-      <option value='{"name":"Ben Brown","age":29,"overall":87,"salary":840000,"team":"North Melbourne"}'>Ben Brown - Age:29 Overall:87 Salary:$840,000</option>
-      <option value='{"name":"Travis Boak","age":33,"overall":86,"salary":800000,"team":"Port Adelaide"}'>Travis Boak - Age:33 Overall:86 Salary:$800,000</option>
-      <option value='{"name":"Jack Riewoldt","age":31,"overall":90,"salary":890000,"team":"Richmond"}'>Jack Riewoldt - Age:31 Overall:90 Salary:$890,000</option>
-      <option value='{"name":"Jack Steele","age":27,"overall":85,"salary":820000,"team":"St Kilda"}'>Jack Steele - Age:27 Overall:85 Salary:$820,000</option>
-      <option value='{"name":"Lance Franklin","age":34,"overall":91,"salary":950000,"team":"Sydney"}'>Lance Franklin - Age:34 Overall:91 Salary:$950,000</option>
-      <option value='{"name":"Nic Naitanui","age":30,"overall":89,"salary":870000,"team":"West Coast"}'>Nic Naitanui - Age:30 Overall:89 Salary:$870,000</option>
-      <option value='{"name":"Marcus Bontempelli","age":25,"overall":93,"salary":940000,"team":"Western Bulldogs"}'>Marcus Bontempelli - Age:25 Overall:93 Salary:$940,000</option>
+      <option value='{"name":"Taylor Walker","age":30,"overall":88,"salary":850000,"team":"Adelaide","kick":88,"handball":85,"mark":90,"tackle":82,"speed":80,"stamina":85,"footyIQ":87,"clutch":86,"strength":88,"discipline":90}'>Taylor Walker - Adelaide</option>
+      <option value='{"name":"Dayne Zorko","age":29,"overall":87,"salary":830000,"team":"Brisbane","kick":85,"handball":87,"mark":83,"tackle":84,"speed":81,"stamina":86,"footyIQ":85,"clutch":88,"strength":82,"discipline":87}'>Dayne Zorko - Brisbane</option>
+      <option value='{"name":"Patrick Cripps","age":27,"overall":92,"salary":900000,"team":"Carlton","kick":90,"handball":91,"mark":88,"tackle":89,"speed":85,"stamina":88,"footyIQ":92,"clutch":90,"strength":87,"discipline":89}'>Patrick Cripps - Carlton</option>
+      <option value='{"name":"Nick Daicos","age":21,"overall":95,"salary":950000,"team":"Collingwood","kick":94,"handball":93,"mark":92,"tackle":90,"speed":91,"stamina":92,"footyIQ":95,"clutch":94,"strength":88,"discipline":92}'>Nick Daicos - Collingwood</option>
+      <option value='{"name":"Zach Merrett","age":26,"overall":90,"salary":870000,"team":"Essendon","kick":88,"handball":87,"mark":85,"tackle":86,"speed":83,"stamina":88,"footyIQ":90,"clutch":87,"strength":85,"discipline":88}'>Zach Merrett - Essendon</option>
+      <!-- Add remaining players here following same structure -->
     </select>
 
+    <div class="stats-box">
+      <label>Kick:</label> <span id="teamA_kick">-</span>
+      <label>Handball:</label> <span id="teamA_handball">-</span>
+      <label>Mark:</label> <span id="teamA_mark">-</span>
+      <label>Tackle:</label> <span id="teamA_tackle">-</span>
+      <label>Speed:</label> <span id="teamA_speed">-</span>
+      <label>Stamina:</label> <span id="teamA_stamina">-</span>
+      <label>Footy IQ:</label> <span id="teamA_footyIQ">-</span>
+      <label>Clutch:</label> <span id="teamA_clutch">-</span>
+      <label>Strength:</label> <span id="teamA_strength">-</span>
+      <label>Discipline:</label> <span id="teamA_discipline">-</span>
+    </div>
   </div>
 
+  <!-- TEAM B -->
   <div class="team-box">
     <h2>Team B</h2>
     <select id="teamBSelect">
@@ -146,35 +102,34 @@ document.querySelector("button[onclick*='Coaching simulation']").addEventListene
 
     <h3>Player</h3>
     <select id="teamBPlayerSelect">
-      <!-- Same single players repeated for team B -->
-      <option value='{"name":"Taylor Walker","age":30,"overall":88,"salary":850000,"team":"Adelaide"}'>Taylor Walker - Age:30 Overall:88 Salary:$850,000</option>
-      <option value='{"name":"Dayne Zorko","age":29,"overall":87,"salary":830000,"team":"Brisbane"}'>Dayne Zorko - Age:29 Overall:87 Salary:$830,000</option>
-      <option value='{"name":"Patrick Cripps","age":27,"overall":92,"salary":900000,"team":"Carlton"}'>Patrick Cripps - Age:27 Overall:92 Salary:$900,000</option>
-      <option value='{"name":"Nick Daicos","age":21,"overall":95,"salary":950000,"team":"Collingwood"}'>Nick Daicos - Age:21 Overall:95 Salary:$950,000</option>
-      <option value='{"name":"Zach Merrett","age":26,"overall":90,"salary":870000,"team":"Essendon"}'>Zach Merrett - Age:26 Overall:90 Salary:$870,000</option>
-      <option value='{"name":"Nat Fyfe","age":28,"overall":93,"salary":940000,"team":"Fremantle"}'>Nat Fyfe - Age:28 Overall:93 Salary:$940,000</option>
-      <option value='{"name":"Patrick Dangerfield","age":32,"overall":91,"salary":910000,"team":"Geelong"}'>Patrick Dangerfield - Age:32 Overall:91 Salary:$910,000</option>
-      <option value='{"name":"Taylin Duman","age":24,"overall":85,"salary":780000,"team":"Gold Coast"}'>Taylin Duman - Age:24 Overall:85 Salary:$780,000</option>
-      <option value='{"name":"Josh Kelly","age":26,"overall":89,"salary":860000,"team":"GWS"}'>Josh Kelly - Age:26 Overall:89 Salary:$860,000</option>
-      <option value='{"name":"Tom Mitchell","age":30,"overall":92,"salary":880000,"team":"Hawthorn"}'>Tom Mitchell - Age:30 Overall:92 Salary:$880,000</option>
-      <option value='{"name":"Christian Petracca","age":25,"overall":94,"salary":920000,"team":"Melbourne"}'>Christian Petracca - Age:25 Overall:94 Salary:$920,000</option>
-      <option value='{"name":"Ben Brown","age":29,"overall":87,"salary":840000,"team":"North Melbourne"}'>Ben Brown - Age:29 Overall:87 Salary:$840,000</option>
-      <option value='{"name":"Travis Boak","age":33,"overall":86,"salary":800000,"team":"Port Adelaide"}'>Travis Boak - Age:33 Overall:86 Salary:$800,000</option>
-      <option value='{"name":"Jack Riewoldt","age":31,"overall":90,"salary":890000,"team":"Richmond"}'>Jack Riewoldt - Age:31 Overall:90 Salary:$890,000</option>
-      <option value='{"name":"Jack Steele","age":27,"overall":85,"salary":820000,"team":"St Kilda"}'>Jack Steele - Age:27 Overall:85 Salary:$820,000</option>
-      <option value='{"name":"Lance Franklin","age":34,"overall":91,"salary":950000,"team":"Sydney"}'>Lance Franklin - Age:34 Overall:91 Salary:$950,000</option>
-      <option value='{"name":"Nic Naitanui","age":30,"overall":89,"salary":870000,"team":"West Coast"}'>Nic Naitanui - Age:30 Overall:89 Salary:$870,000</option>
-      <option value='{"name":"Marcus Bontempelli","age":25,"overall":93,"salary":940000,"team":"Western Bulldogs"}'>Marcus Bontempelli - Age:25 Overall:93 Salary:$940,000</option>
+      <option value='{"name":"Taylor Walker","age":30,"overall":88,"salary":850000,"team":"Adelaide","kick":88,"handball":85,"mark":90,"tackle":82,"speed":80,"stamina":85,"footyIQ":87,"clutch":86,"strength":88,"discipline":90}'>Taylor Walker - Adelaide</option>
+      <option value='{"name":"Dayne Zorko","age":29,"overall":87,"salary":830000,"team":"Brisbane","kick":85,"handball":87,"mark":83,"tackle":84,"speed":81,"stamina":86,"footyIQ":85,"clutch":88,"strength":82,"discipline":87}'>Dayne Zorko - Brisbane</option>
+      <option value='{"name":"Patrick Cripps","age":27,"overall":92,"salary":900000,"team":"Carlton","kick":90,"handball":91,"mark":88,"tackle":89,"speed":85,"stamina":88,"footyIQ":92,"clutch":90,"strength":87,"discipline":89}'>Patrick Cripps - Carlton</option>
+      <option value='{"name":"Nick Daicos","age":21,"overall":95,"salary":950000,"team":"Collingwood","kick":94,"handball":93,"mark":92,"tackle":90,"speed":91,"stamina":92,"footyIQ":95,"clutch":94,"strength":88,"discipline":92}'>Nick Daicos - Collingwood</option>
+      <option value='{"name":"Zach Merrett","age":26,"overall":90,"salary":870000,"team":"Essendon","kick":88,"handball":87,"mark":85,"tackle":86,"speed":83,"stamina":88,"footyIQ":90,"clutch":87,"strength":85,"discipline":88}'>Zach Merrett - Essendon</option>
+      <!-- Add remaining players here following same structure -->
     </select>
 
+    <div class="stats-box">
+      <label>Kick:</label> <span id="teamB_kick">-</span>
+      <label>Handball:</label> <span id="teamB_handball">-</span>
+      <label>Mark:</label> <span id="teamB_mark">-</span>
+      <label>Tackle:</label> <span id="teamB_tackle">-</span>
+      <label>Speed:</label> <span id="teamB_speed">-</span>
+      <label>Stamina:</label> <span id="teamB_stamina">-</label>
+      <label>Footy IQ:</label> <span id="teamB_footyIQ">-</span>
+      <label>Clutch:</label> <span id="teamB_clutch">-</span>
+      <label>Strength:</label> <span id="teamB_strength">-</span>
+      <label>Discipline:</label> <span id="teamB_discipline">-</span>
+    </div>
   </div>
 
 </div>
 
-<button onclick="alert('JS trade evaluation will go here')">Evaluate Trade</button>
+<button onclick="alert('Trade evaluation JS will go here')">Evaluate Trade</button>
 <div id="tradeResult"></div>
 
-<!-- COACHING SIMULATOR PLACEHOLDER -->
+<!-- COACHING SIMULATOR -->
 <div class="team-box" style="margin:20px auto;">
 <h2>Coaching Simulator</h2>
 <label>Pick a Team:</label>
@@ -215,6 +170,5 @@ document.querySelector("button[onclick*='Coaching simulation']").addEventListene
 </div>
 
 </div>
-
 </body>
 </html>
