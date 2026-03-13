@@ -14,6 +14,41 @@ document.getElementById(pageId).style.display = "block";
 
 }
 
+document.addEventListener("DOMContentLoaded", function(){
+
+const sections = document.querySelectorAll("main section");
+const buttons = document.querySelectorAll("#sidebar button");
+
+/* Hide everything */
+function hideAllPages(){
+sections.forEach(section=>{
+section.style.display = "none";
+});
+}
+
+/* Show selected page */
+function showPage(pageId){
+hideAllPages();
+document.getElementById(pageId).style.display = "block";
+}
+
+/* Default page */
+showPage("homePage");
+
+/* Button clicks */
+buttons.forEach(button=>{
+
+button.addEventListener("click", function(){
+
+let page = this.getAttribute("data-page");
+showPage(page);
+
+});
+
+});
+
+});
+
 
 document.addEventListener("DOMContentLoaded", function(){
 
