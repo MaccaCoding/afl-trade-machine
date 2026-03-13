@@ -4,37 +4,254 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AFL Trade Machine - My League Style</title>
-<link rel="stylesheet" href="style.css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f3f3;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+h1, h2 {
+  color: #222;
+}
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 10px;
+}
+.trade-section, .coach-section {
+  background-color: white;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+.team-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.team-box {
+  width: 45%;
+}
+select, input {
+  display: block;
+  margin: 10px auto;
+  padding: 8px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #0077cc;
+  color: white;
+}
+button:hover {
+  background-color: #005fa3;
+}
+#tradeResult, #coachingResult {
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: 18px;
+}
+.player-list {
+  margin-top: 10px;
+}
+.player-item {
+  margin: 5px 0;
+}
+</style>
 </head>
 <body>
 
-<h1>AFL Trade Machine & My League Simulator</h1>
+<div class="container">
+<h1>AFL Trade Machine - My League Style</h1>
 
-<!-- TEAM SELECTION -->
-<div class="team-selection">
+<!-- TRADE MACHINE -->
+<div class="trade-section">
+<h2>Trade Machine</h2>
+<div class="team-container">
   <div class="team-box">
-    <h2>Team A</h2>
-    <select id="teamA">
+    <h3>Team A</h3>
+    <select id="teamASelect">
       <option value="">Select Team</option>
       <option value="Collingwood">Collingwood</option>
       <option value="Carlton">Carlton</option>
       <option value="Richmond">Richmond</option>
     </select>
 
-    <h3>Players</h3>
-    <table id="teamAPlayers">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Position</th>
-          <th>Rating</th>
-          <th>Salary</th>
-          <th>Add</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Example row (you can duplicate & update later) -->
-        <tr>
+    <h4>Players</h4>
+    <select id="teamAPlayersSelect" multiple size="5"></select>
+
+    <h4>Draft Picks</h4>
+    <select id="teamADraftSelect" multiple size="3"></select>
+  </div>
+
+  <div class="team-box">
+    <h3>Team B</h3>
+    <select id="teamBSelect">
+      <option value="">Select Team</option>
+      <option value="Collingwood">Collingwood</option>
+      <option value="Carlton">Carlton</option>
+      <option value="Richmond">Richmond</option>
+    </select>
+
+    <h4>Players</h4>
+    <select id="teamBPlayersSelect" multiple size="5"></select>
+
+    <h4>Draft Picks</h4>
+    <select id="teamBDraftSelect" multiple size="3"></select>
+  </div>
+</div>
+
+<button onclick="evaluateTrade()">Evaluate Trade</button>
+<div id="tradeResult"></div>
+</div>
+
+<!-- COACHING SIMULATOR -->
+<div class="coach-section">
+<h2>Coaching Simulator</h2>
+<label>Pick a Team:</label>
+<select id="coachTeam">
+  <option value="">Select Team</option>
+  <option value="Collingwood">Collingwood</option>
+  <option value="Carlton">Carlton</option>
+  <option value="Richmond">Richmond</option>
+</select>
+
+<label>Select Tactics:</label>
+<select id="tactics">
+  <option value="attack">Attack</option>
+  <option value="defence">Defence</option>
+  <option value="pressure">Pressure</option>
+</select>
+
+<h4>Player Attributes</h4>
+<input type="number" id="playerAttack" placeholder="Team attack (0-100)">
+<input type="number" id="playerDefence" placeholder="Team defence (0-100)">
+<input type="number" id="playerSpeed" placeholder="Team speed (0-100)">
+
+<button onclick="simulateMatch()">Simulate Match</button>
+<div id="coachingResult"></div>
+</div>
+</div>
+
+<script>
+// --- Example Player & Draft Data (Update Later) ---
+const players = [
+  {name:"Nick Daicos", position:"MID", rating:95, salary:900000, team:"Collingwood"},
+  {name:"Patrick Cripps", position:"MID", rating:92, salary:850000, team:"Carlton"},
+  {name:"Jack Riewoldt", position:"FWD", rating:90, salary:800000, team:"Richmond"}
+];
+
+const draftPicks = [
+  {pick:1, value:3000},
+  {pick:2, value:2517},
+  {pick:10, value:1395}
+];
+
+// Populate dropdowns
+function populateDropdowns(){
+  const teamAPlayers = document.getElementById("teamAPlayersSelect");
+  const teamBPlayers = document.getElementById("teamBPlayersSelect");
+  const teamADraft = document.getElementById("teamADraftSelect");
+  const teamBDraft = document.getElementById("teamBDraftSelect");
+
+  players.forEach(p=>{
+    let optionA = document.createElement("option");
+    optionA.value = JSON.stringify(p);
+    optionA.text = `${p.name} (${p.position}) Rating:${p.rating} Salary:$${p.salary}`;
+    teamAPlayers.add(optionA);
+
+    let optionB = document.createElement("option");
+    optionB.value = JSON.stringify(p);
+    optionB.text = `${p.name} (${p.position}) Rating:${p.rating} Salary:$${p.salary}`;
+    teamBPlayers.add(optionB);
+  });
+
+  draftPicks.forEach(d=>{
+    let optionA = document.createElement("option");
+    optionA.value = JSON.stringify(d);
+    optionA.text = `Pick ${d.pick} - Value:${d.value}`;
+    teamADraft.add(optionA);
+
+    let optionB = document.createElement("option");
+    optionB.value = JSON.stringify(d);
+    optionB.text = `Pick ${d.pick} - Value:${d.value}`;
+    teamBDraft.add(optionB);
+  });
+}
+
+// Call on load
+populateDropdowns();
+
+// --- Trade Machine Logic ---
+function evaluateTrade(){
+  const teamASelect = document.getElementById("teamAPlayersSelect");
+  const teamBSelect = document.getElementById("teamBPlayersSelect");
+  const draftASelect = document.getElementById("teamADraftSelect");
+  const draftBSelect = document.getElementById("teamBDraftSelect");
+  const teamAName = document.getElementById("teamASelect").value;
+  const teamBName = document.getElementById("teamBSelect").value;
+
+  if(!teamAName || !teamBName){
+    document.getElementById("tradeResult").innerText="Select both teams!";
+    return;
+  }
+
+  function sumValues(select){
+    let total=0;
+    Array.from(select.selectedOptions).forEach(o=>{
+      const obj = JSON.parse(o.value);
+      total += (obj.rating || 0) + ((obj.salary || 0)/100000) + (obj.value || 0)/100;
+    });
+    return total;
+  }
+
+  const totalA = sumValues(teamASelect) + sumValues(draftASelect);
+  const totalB = sumValues(teamBSelect) + sumValues(draftBSelect);
+
+  let diff = Math.abs(totalA-totalB);
+  let result="";
+  if(diff<10) result=`Fair Trade between ${teamAName} and ${teamBName}!`;
+  else if(totalA>totalB) result=`${teamAName} gets the better deal!`;
+  else result=`${teamBName} gets the better deal!`;
+
+  document.getElementById("tradeResult").innerText=result;
+}
+
+// --- Coaching Simulator ---
+function simulateMatch(){
+  const attack = Number(document.getElementById("playerAttack").value);
+  const defence = Number(document.getElementById("playerDefence").value);
+  const speed = Number(document.getElementById("playerSpeed").value);
+  const tactics = document.getElementById("tactics").value;
+  const team = document.getElementById("coachTeam").value;
+
+  if(!team || isNaN(attack) || isNaN(defence) || isNaN(speed)){
+    document.getElementById("coachingResult").innerText="Select team and enter all attributes!";
+    return;
+  }
+
+  let score = attack*0.4 + defence*0.3 + speed*0.3;
+  if(tactics==="attack") score*=1.05;
+  else if(tactics==="defence") score*=1.03;
+  else if(tactics==="pressure") score*=1.04;
+  score += Math.random()*10;
+
+  document.getElementById("coachingResult").innerText=`${team} using ${tactics} tactics scores ${Math.round(score)} points!`;
+}
+</script>
+
+</body>
+</html>        <tr>
           <td>Nick Daicos</td>
           <td>MID</td>
           <td>95</td>
