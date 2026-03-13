@@ -1,36 +1,31 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>AFL Career Mode Simulator</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
+
 
 <body>
 
-<!-- SIDEBAR NAVIGATION -->
+
+
+<!-- ===============================
+SIDEBAR NAVIGATION
+=============================== -->
 
 <nav id="sidebar">
 
-<h2>Career Mode</h2>
-
-<button>Home</button>
-<button>Fixture / Results</button>
-<button>Team Lineup</button>
-<button>Team Tactics</button>
-<button>Coaching</button>
-<button>Drafting</button>
-<button>Free Agency</button>
-<button>Trade</button>
-<button>Team Stats</button>
-<button>Player Stats</button>
-<button>Awards</button>
-<button>Finals</button>
-
-</nav>
-<nav id="sidebar">
+<h2>AFL Career</h2>
 
 <button data-page="homePage">Home</button>
 <button data-page="fixturePage">Fixture / Results</button>
@@ -47,18 +42,26 @@
 
 </nav>
 
-<!-- MAIN CONTENT AREA -->
+
+
+<!-- ===============================
+MAIN CONTENT AREA
+=============================== -->
 
 <main id="mainContent">
 
-<!-- HOME PAGE -->
+
+
+<!-- ===============================
+HOME PAGE
+=============================== -->
 
 <section id="homePage">
 
 <h1>Home</h1>
 
 <h3>Your Team</h3>
-<p id="selectedTeam">Adelaide Crows</p>
+<p>Adelaide Crows</p>
 
 <h3>Season Record</h3>
 <p>Wins: 0 | Losses: 0 | Draws: 0</p>
@@ -66,15 +69,18 @@
 <h3>Next Match</h3>
 <p>Adelaide vs Brisbane</p>
 
+
+
 <h3>AFL Ladder</h3>
 
-<table border="1">
+<table>
+
 <tr>
-<th>Position</th>
+<th>Pos</th>
 <th>Team</th>
 <th>W</th>
 <th>L</th>
-<th>Points</th>
+<th>Pts</th>
 <th>%</th>
 </tr>
 
@@ -103,7 +109,9 @@
 
 
 
-<!-- FIXTURE / RESULTS -->
+<!-- ===============================
+FIXTURE / RESULTS
+=============================== -->
 
 <section id="fixturePage">
 
@@ -113,7 +121,7 @@
 <span>Round 1</span>
 <button>Next Round</button>
 
-<table border="1">
+<table>
 
 <tr>
 <th>Home</th>
@@ -121,9 +129,17 @@
 <th>Score</th>
 </tr>
 
-<tr><td>Adelaide</td><td>Brisbane</td><td>-</td></tr>
-<tr><td>Carlton</td><td>Collingwood</td><td>-</td></tr>
-<tr><td>Essendon</td><td>Fremantle</td><td>-</td></tr>
+<tr>
+<td>Adelaide</td>
+<td>Brisbane</td>
+<td>-</td>
+</tr>
+
+<tr>
+<td>Carlton</td>
+<td>Collingwood</td>
+<td>-</td>
+</tr>
 
 </table>
 
@@ -131,102 +147,89 @@
 
 
 
-<!-- TEAM LINEUP -->
+<!-- ===============================
+TEAM LINEUP
+=============================== -->
 
 <section id="lineupPage">
 
 <h1>Team Lineup</h1>
 
-<h3>Full Back Line</h3>
-<div>Player 1 | Player 2 | Player 3</div>
+<h3>Full Back</h3>
+<div class="line">Player | Player | Player</div>
 
-<h3>Half Back Line</h3>
-<div>Player 4 | Player 5 | Player 6</div>
+<h3>Half Back</h3>
+<div class="line">Player | Player | Player</div>
 
 <h3>Midfield</h3>
-<div>Player 7 | Player 8 | Player 9</div>
+<div class="line">Player | Player | Player</div>
 
 <h3>Half Forward</h3>
-<div>Player 10 | Player 11 | Player 12</div>
+<div class="line">Player | Player | Player</div>
 
 <h3>Full Forward</h3>
-<div>Player 13 | Player 14 | Player 15</div>
+<div class="line">Player | Player | Player</div>
 
 <h3>Followers</h3>
-<div>Player 16 | Player 17 | Player 18</div>
+<div class="line">Player | Player | Player</div>
 
 <h3>Bench</h3>
-<div>Player 19 | Player 20 | Player 21 | Player 22 | Player 23</div>
+<div class="line">Player | Player | Player | Player | Player</div>
 
 <h3>Reserves</h3>
-<div>Player A | Player B | Player C</div>
+<div class="line">Player | Player | Player</div>
 
-<h3>Unavailable (Injured / Suspended)</h3>
-<div>Player X</div>
+<h3 class="injured">Unavailable (Injured / Suspended)</h3>
+<div class="line">Player</div>
 
 </section>
 
 
 
-<!-- TEAM TACTICS -->
+<!-- ===============================
+TEAM TACTICS
+=============================== -->
 
 <section id="tacticsPage">
 
 <h1>Team Tactics</h1>
 
 <h3>Game Speed</h3>
+
 <select>
 <option>Reserved</option>
 <option>Balanced</option>
 <option>Attacking</option>
 </select>
 
+
 <h3>Ball Movement</h3>
+
 <select>
 <option>Wide</option>
 <option>Balanced</option>
 <option>Narrow</option>
 </select>
 
+
 <label>
 <input type="checkbox">
-Play Spare
+Play With Spare
 </label>
-
-<h3>Leadership</h3>
-
-Captain:
-<select>
-<option>Adelaide Player</option>
-</select>
-
-Kickouts:
-<select>
-<option>Adelaide Player</option>
-</select>
-
-Backup Rucks:
-<select>
-<option>Adelaide Player</option>
-</select>
-
-Tagger:
-<select>
-<option>None</option>
-<option>Adelaide Player</option>
-</select>
 
 </section>
 
 
 
-<!-- COACHING -->
+<!-- ===============================
+COACHING
+=============================== -->
 
 <section id="coachingPage">
 
 <h1>Coaching Staff</h1>
 
-<table border="1">
+<table>
 
 <tr>
 <th>Role</th>
@@ -236,9 +239,13 @@ Tagger:
 <th>Mindset</th>
 </tr>
 
-<tr><td>Head Coach</td><td>Coach 1</td><td>80</td><td>75</td><td>Aggressive</td></tr>
-<tr><td>Assistant Coach</td><td>Coach 2</td><td>70</td><td>70</td><td>Balanced</td></tr>
-<tr><td>Doctor</td><td>Doctor 1</td><td>60</td><td>60</td><td>Defensive</td></tr>
+<tr>
+<td>Head Coach</td>
+<td>Coach</td>
+<td>80</td>
+<td>75</td>
+<td>Aggressive</td>
+</tr>
 
 </table>
 
@@ -246,21 +253,27 @@ Tagger:
 
 
 
-<!-- DRAFTING -->
+<!-- ===============================
+DRAFT
+=============================== -->
 
 <section id="draftPage">
 
 <h1>Draft Prospects</h1>
 
-<table border="1">
+<table>
 
 <tr>
 <th>Name</th>
 <th>Position</th>
-<th>Scouted Info</th>
+<th>Scouted</th>
 </tr>
 
-<tr><td>Prospect 1</td><td>Mid</td><td>Unknown</td></tr>
+<tr>
+<td>Prospect</td>
+<td>Mid</td>
+<td>Unknown</td>
+</tr>
 
 </table>
 
@@ -268,32 +281,38 @@ Tagger:
 
 
 
-<!-- FREE AGENCY -->
+<!-- ===============================
+FREE AGENCY
+=============================== -->
 
 <section id="freeAgencyPage">
 
 <h1>Free Agency</h1>
 
-<p>Re-sign players or sign available free agents during offseason.</p>
+<p>Re-sign your players or sign free agents in the offseason.</p>
 
 </section>
 
 
 
-<!-- TRADE MACHINE -->
+<!-- ===============================
+TRADE
+=============================== -->
 
 <section id="tradePage">
 
 <h1>Trade Machine</h1>
 
 <h3>Team A</h3>
+
 <select>
-<option>Adelaide Player</option>
+<option>Player</option>
 </select>
 
 <h3>Team B</h3>
+
 <select>
-<option>Brisbane Player</option>
+<option>Player</option>
 </select>
 
 <button>Evaluate Trade</button>
@@ -302,65 +321,76 @@ Tagger:
 
 
 
-<!-- TEAM STATS -->
+<!-- ===============================
+TEAM STATS
+=============================== -->
 
 <section id="teamStatsPage">
 
 <h1>Team Stats</h1>
 
-<button>Sort By Points For</button>
-<button>Sort By Points Against</button>
-<button>Sort By Percentage</button>
+<p>Sort by points for, points against, or percentage.</p>
 
 </section>
 
 
 
-<!-- PLAYER STATS -->
+<!-- ===============================
+PLAYER STATS
+=============================== -->
 
 <section id="playerStatsPage">
 
 <h1>Player Stats</h1>
 
-<p>Your Team Players</p>
-
-<p>League Leaders</p>
+<p>Your team statistics and league leaders.</p>
 
 </section>
 
 
 
-<!-- AWARDS -->
+<!-- ===============================
+AWARDS
+=============================== -->
 
 <section id="awardsPage">
 
 <h1>Awards</h1>
 
 <ul>
-
 <li>Brownlow Medal</li>
 <li>Coleman Medal</li>
 <li>Norm Smith Medal</li>
-
 </ul>
 
 </section>
 
 
 
-<!-- FINALS -->
+<!-- ===============================
+FINALS
+=============================== -->
 
 <section id="finalsPage">
 
 <h1>Finals Series</h1>
 
-<p>Finals Bracket</p>
+<p>Finals bracket and results.</p>
 
 </section>
 
 
 
 </main>
+
+
+
+<!-- ===============================
+JAVASCRIPT LINK
+=============================== -->
+
+<script src="script.js"></script>
+
 
 </body>
 </html>
