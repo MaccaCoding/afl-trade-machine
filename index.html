@@ -2,11 +2,44 @@
 <html>
 <head>
   <title>AFL Trade Machine</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <h1>AFL Trade Machine</h1>
-<p>Your app is working!</p>
+
+<div class="trade-container">
+
+<div>
+<h2>Team A</h2>
+<select id="teamA">
+<option>Collingwood</option>
+<option>Carlton</option>
+<option>Richmond</option>
+</select>
+
+<input id="valueA" placeholder="Player value">
+</div>
+
+<div>
+<h2>Team B</h2>
+<select id="teamB">
+<option>Carlton</option>
+<option>Collingwood</option>
+<option>Richmond</option>
+</select>
+
+<input id="valueB" placeholder="Player value">
+</div>
+
+</div>
+
+<button onclick="evaluateTrade()">Evaluate Trade</button>
+
+<h2 id="result"></h2>
+
+<script src="script.js"></script>
 
 </body>
 </html>
