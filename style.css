@@ -11,6 +11,9 @@ color:white;
 display:flex;
 }
 
+main section{
+display:none;
+}
 
 /* ============================
 SIDEBAR
