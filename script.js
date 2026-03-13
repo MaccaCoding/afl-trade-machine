@@ -2,7 +2,6 @@
 // =====================================
 // AFL CAREER MODE JAVASCRIPT
 // =====================================
-
 // 1️⃣ PAGE NAVIGATION: show only selected page
 document.addEventListener("DOMContentLoaded", function () {
 
