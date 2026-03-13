@@ -1,12 +1,47 @@
-```javascript
-/* ================================
-   AFL CAREER MODE SIMULATION ENGINE
-================================ */
+/* =====================================
+PAGE NAVIGATION SYSTEM
+===================================== */
+
+function showPage(pageId){
+
+let sections = document.querySelectorAll("main section");
+
+sections.forEach(section=>{
+section.style.display = "none";
+});
+
+document.getElementById(pageId).style.display = "block";
+
+}
 
 
-/* ================================
-   PLAYER RATINGS + OVERALL
-================================ */
+document.addEventListener("DOMContentLoaded", function(){
+
+showPage("homePage");
+
+let buttons = document.querySelectorAll("#sidebar button");
+
+buttons[0].onclick = () => showPage("homePage");
+buttons[1].onclick = () => showPage("fixturePage");
+buttons[2].onclick = () => showPage("lineupPage");
+buttons[3].onclick = () => showPage("tacticsPage");
+buttons[4].onclick = () => showPage("coachingPage");
+buttons[5].onclick = () => showPage("draftPage");
+buttons[6].onclick = () => showPage("freeAgencyPage");
+buttons[7].onclick = () => showPage("tradePage");
+buttons[8].onclick = () => showPage("teamStatsPage");
+buttons[9].onclick = () => showPage("playerStatsPage");
+buttons[10].onclick = () => showPage("awardsPage");
+buttons[11].onclick = () => showPage("finalsPage");
+
+});
+
+
+
+/* =====================================
+PLAYER OVERALL CALCULATION
+(number of categories - 2) x average
+===================================== */
 
 function calculateOverall(player){
 
@@ -34,14 +69,17 @@ return Math.round(overall);
 }
 
 
-/* ================================
-   PLAYER VALUE FORMULA
-================================ */
+
+/* =====================================
+PLAYER VALUE FORMULA
+5000 x overall x (45-age) / (0.001 x salary)
+===================================== */
 
 function calculatePlayerValue(player){
 
 let value =
-5000 * player.overall *
+5000 *
+player.overall *
 (45 - player.age) /
 (0.001 * player.salary);
 
@@ -50,45 +88,49 @@ return Math.round(value);
 }
 
 
-/* ================================
-   DRAFT PICK VALUE
-================================ */
 
-function calculatePickValue(realLifeValue){
-return realLifeValue * 2;
+/* =====================================
+DRAFT PICK VALUE
+===================================== */
+
+function calculatePickValue(realValue){
+
+return realValue * 2;
+
 }
 
 
-/* ================================
-   PLAYER OBJECT TEMPLATE
-================================ */
+
+/* =====================================
+PLAYER OBJECT
+===================================== */
 
 function createPlayer(data){
 
 let player = {
 
-name: data.name,
-team: data.team,
-position: data.position,
-age: data.age,
+name:data.name,
+team:data.team,
+position:data.position,
+age:data.age,
 
-kick: data.kick,
-handball: data.handball,
-mark: data.mark,
-tackle: data.tackle,
-speed: data.speed,
-stamina: data.stamina,
-footyIQ: data.footyIQ,
-clutch: data.clutch,
-strength: data.strength,
-discipline: data.discipline,
-rucking: data.rucking,
+kick:data.kick,
+handball:data.handball,
+mark:data.mark,
+tackle:data.tackle,
+speed:data.speed,
+stamina:data.stamina,
+footyIQ:data.footyIQ,
+clutch:data.clutch,
+strength:data.strength,
+discipline:data.discipline,
+rucking:data.rucking,
 
-salary: data.salary,
-contractYears: data.contractYears,
+salary:data.salary,
+contractYears:data.contractYears,
 
-injured: false,
-suspended: false,
+injured:false,
+suspended:false,
 
 stats:{
 goals:0,
@@ -107,9 +149,10 @@ return player;
 }
 
 
-/* ================================
-   TEAM OBJECT
-================================ */
+
+/* =====================================
+TEAM OBJECT
+===================================== */
 
 function createTeam(name){
 
@@ -131,15 +174,21 @@ pointsAgainst:0
 }
 
 
-/* ================================
-   TRADE MACHINE
-================================ */
+
+/* =====================================
+TRADE MACHINE
+Rules:
+- subtract 2000 value
+- max 3 player difference
+===================================== */
 
 function evaluateTrade(teamAPlayers, teamBPlayers){
 
 if(Math.abs(teamAPlayers.length - teamBPlayers.length) > 3){
+
 alert("Trade rejected: more than 3 extra players involved");
 return false;
+
 }
 
 let valueA = 0;
@@ -156,18 +205,23 @@ valueB += (p.value - 2000);
 let diff = Math.abs(valueA - valueB);
 
 if(diff < 5000){
+
 return "Trade Accepted";
+
 }
 else{
+
 return "Trade Rejected";
-}
 
 }
 
+}
 
-/* ================================
-   LINEUP SWAP SYSTEM
-================================ */
+
+
+/* =====================================
+LINEUP SWAP SYSTEM
+===================================== */
 
 function swapPlayers(playerA, playerB){
 
@@ -179,9 +233,10 @@ playerB.positionSlot = temp;
 }
 
 
-/* ================================
-   MATCH SIMULATION
-================================ */
+
+/* =====================================
+MATCH SIMULATION
+===================================== */
 
 function simulateMatch(teamA, teamB){
 
@@ -212,11 +267,13 @@ goalsB++;
 }
 
 
+
 teamA.pointsFor += goalsA*6;
 teamA.pointsAgainst += goalsB*6;
 
 teamB.pointsFor += goalsB*6;
 teamB.pointsAgainst += goalsA*6;
+
 
 
 if(goalsA > goalsB){
@@ -225,12 +282,14 @@ teamA.wins++;
 teamB.losses++;
 
 }
+
 else if(goalsB > goalsA){
 
 teamB.wins++;
 teamA.losses++;
 
 }
+
 else{
 
 teamA.draws++;
@@ -240,16 +299,19 @@ teamB.draws++;
 
 
 return{
+
 teamA:goalsA,
 teamB:goalsB
+
 };
 
 }
 
 
-/* ================================
-   LADDER SORTING
-================================ */
+
+/* =====================================
+LADDER SORTING
+===================================== */
 
 function sortLadder(teams){
 
@@ -272,9 +334,10 @@ return percentB - percentA;
 }
 
 
-/* ================================
-   PLAYER MATCH STATS
-================================ */
+
+/* =====================================
+PLAYER MATCH STATS
+===================================== */
 
 function generatePlayerStats(player){
 
@@ -286,9 +349,10 @@ player.stats.goals += Math.floor(Math.random()*4);
 }
 
 
-/* ================================
-   CONTRACT SYSTEM
-================================ */
+
+/* =====================================
+CONTRACT SYSTEM
+===================================== */
 
 function contractString(player){
 
@@ -312,9 +376,10 @@ p.freeAgent = true;
 }
 
 
-/* ================================
-   FREE AGENCY
-================================ */
+
+/* =====================================
+FREE AGENCY CONTRACT SUGGESTIONS
+===================================== */
 
 function suggestContract(player){
 
@@ -333,9 +398,10 @@ return Math.round(base);
 }
 
 
-/* ================================
-   COACH OBJECT
-================================ */
+
+/* =====================================
+COACH OBJECT
+===================================== */
 
 function createCoach(name){
 
@@ -343,35 +409,42 @@ return{
 
 name:name,
 
-offence: Math.floor(Math.random()*100),
-defence: Math.floor(Math.random()*100),
+offence:Math.floor(Math.random()*100),
+defence:Math.floor(Math.random()*100),
 
-mindset:["Aggressive","Defensive","Balanced"]
-[Math.floor(Math.random()*3)]
+mindset:[
+"Aggressive",
+"Defensive",
+"Balanced"
+][Math.floor(Math.random()*3)]
 
 };
 
 }
 
 
-/* ================================
-   DRAFT SCOUTING
-================================ */
+
+/* =====================================
+DRAFT SCOUTING
+===================================== */
 
 function scoutProspect(prospect, scoutLevel){
 
 let revealChance = scoutLevel / 100;
 
 if(Math.random() < revealChance){
+
 prospect.scouted = true;
-}
 
 }
 
+}
 
-/* ================================
-   FINALS BRACKET
-================================ */
+
+
+/* =====================================
+FINALS BRACKET GENERATION
+===================================== */
 
 function generateFinals(teams){
 
@@ -390,5 +463,4 @@ EF2:[top8[5],top8[6]]
 };
 
 }
-
 ```
