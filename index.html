@@ -1,397 +1,137 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>AFL Career Mode Simulator</title>
-
 <link rel="stylesheet" href="style.css">
-<script src="script.js"></script>
 </head>
-
-
-
 <body>
 
-
-
-<!-- ===============================
-SIDEBAR NAVIGATION
-=============================== -->
-
+<!-- Sidebar -->
 <nav id="sidebar">
-
-<h2>AFL Career</h2>
-
-<button data-page="homePage">Home</button>
-<button data-page="fixturePage">Fixture / Results</button>
-<button data-page="lineupPage">Team Lineup</button>
-<button data-page="tacticsPage">Team Tactics</button>
-<button data-page="coachingPage">Coaching</button>
-<button data-page="draftPage">Drafting</button>
-<button data-page="freeAgencyPage">Free Agency</button>
-<button data-page="tradePage">Trade</button>
-<button data-page="teamStatsPage">Team Stats</button>
-<button data-page="playerStatsPage">Player Stats</button>
-<button data-page="awardsPage">Awards</button>
-<button data-page="finalsPage">Finals</button>
-
+  <h2 style="color:white;">AFL Career Mode</h2>
+  <button data-page="homePage">Home</button>
+  <button data-page="fixturePage">Fixture/Results</button>
+  <button data-page="teamLineupPage">Team Lineup</button>
+  <button data-page="teamTacticsPage">Team Tactics</button>
+  <button data-page="coachingPage">Coaching</button>
+  <button data-page="draftPage">Drafting</button>
+  <button data-page="freeAgencyPage">Free Agency</button>
+  <button data-page="tradePage">Trade</button>
+  <button data-page="teamStatsPage">Team Stats</button>
+  <button data-page="playerStatsPage">Player Stats</button>
+  <button data-page="awardsPage">Awards</button>
+  <button data-page="finalsPage">Finals</button>
 </nav>
 
-
-
-<!-- ===============================
-MAIN CONTENT AREA
-=============================== -->
-
-<main id="mainContent">
-
-
-
-<!-- ===============================
-HOME PAGE
-=============================== -->
-
-<section id="homePage">
-
-<h1>Home</h1>
-
-<h3>Your Team</h3>
-<p>Adelaide Crows</p>
-
-<h3>Season Record</h3>
-<p>Wins: 0 | Losses: 0 | Draws: 0</p>
-
-<h3>Next Match</h3>
-<p>Adelaide vs Brisbane</p>
-
-
-
-<h3>AFL Ladder</h3>
-
-<table>
-
-<tr>
-<th>Pos</th>
-<th>Team</th>
-<th>W</th>
-<th>L</th>
-<th>Pts</th>
-<th>%</th>
-</tr>
-
-<tr><td>1</td><td>Adelaide</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>2</td><td>Brisbane</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>3</td><td>Carlton</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>4</td><td>Collingwood</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>5</td><td>Essendon</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>6</td><td>Fremantle</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>7</td><td>Geelong</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>8</td><td>Gold Coast</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>9</td><td>GWS</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>10</td><td>Hawthorn</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>11</td><td>Melbourne</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>12</td><td>North Melbourne</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>13</td><td>Port Adelaide</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>14</td><td>Richmond</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>15</td><td>St Kilda</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>16</td><td>Sydney</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>17</td><td>West Coast</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-<tr><td>18</td><td>Western Bulldogs</td><td>0</td><td>0</td><td>0</td><td>100</td></tr>
-
-</table>
-
-</section>
-
-
-
-<!-- ===============================
-FIXTURE / RESULTS
-=============================== -->
-
-<section id="fixturePage">
-
-<h1>Fixture / Results</h1>
-
-<button>Previous Round</button>
-<span>Round 1</span>
-<button>Next Round</button>
-
-<table>
-
-<tr>
-<th>Home</th>
-<th>Away</th>
-<th>Score</th>
-</tr>
-
-<tr>
-<td>Adelaide</td>
-<td>Brisbane</td>
-<td>-</td>
-</tr>
-
-<tr>
-<td>Carlton</td>
-<td>Collingwood</td>
-<td>-</td>
-</tr>
-
-</table>
-
-</section>
-
-
-
-<!-- ===============================
-TEAM LINEUP
-=============================== -->
-
-<section id="lineupPage">
-
-<h1>Team Lineup</h1>
-
-<h3>Full Back</h3>
-<div class="line">Player | Player | Player</div>
-
-<h3>Half Back</h3>
-<div class="line">Player | Player | Player</div>
-
-<h3>Midfield</h3>
-<div class="line">Player | Player | Player</div>
-
-<h3>Half Forward</h3>
-<div class="line">Player | Player | Player</div>
-
-<h3>Full Forward</h3>
-<div class="line">Player | Player | Player</div>
-
-<h3>Followers</h3>
-<div class="line">Player | Player | Player</div>
-
-<h3>Bench</h3>
-<div class="line">Player | Player | Player | Player | Player</div>
-
-<h3>Reserves</h3>
-<div class="line">Player | Player | Player</div>
-
-<h3 class="injured">Unavailable (Injured / Suspended)</h3>
-<div class="line">Player</div>
-
-</section>
-
-
-
-<!-- ===============================
-TEAM TACTICS
-=============================== -->
-
-<section id="tacticsPage">
-
-<h1>Team Tactics</h1>
-
-<h3>Game Speed</h3>
-
-<select>
-<option>Reserved</option>
-<option>Balanced</option>
-<option>Attacking</option>
-</select>
-
-
-<h3>Ball Movement</h3>
-
-<select>
-<option>Wide</option>
-<option>Balanced</option>
-<option>Narrow</option>
-</select>
-
-
-<label>
-<input type="checkbox">
-Play With Spare
-</label>
-
-</section>
-
-
-
-<!-- ===============================
-COACHING
-=============================== -->
-
-<section id="coachingPage">
-
-<h1>Coaching Staff</h1>
-
-<table>
-
-<tr>
-<th>Role</th>
-<th>Name</th>
-<th>Offence</th>
-<th>Defence</th>
-<th>Mindset</th>
-</tr>
-
-<tr>
-<td>Head Coach</td>
-<td>Coach</td>
-<td>80</td>
-<td>75</td>
-<td>Aggressive</td>
-</tr>
-
-</table>
-
-</section>
-
-
-
-<!-- ===============================
-DRAFT
-=============================== -->
-
-<section id="draftPage">
-
-<h1>Draft Prospects</h1>
-
-<table>
-
-<tr>
-<th>Name</th>
-<th>Position</th>
-<th>Scouted</th>
-</tr>
-
-<tr>
-<td>Prospect</td>
-<td>Mid</td>
-<td>Unknown</td>
-</tr>
-
-</table>
-
-</section>
-
-
-
-<!-- ===============================
-FREE AGENCY
-=============================== -->
-
-<section id="freeAgencyPage">
-
-<h1>Free Agency</h1>
-
-<p>Re-sign your players or sign free agents in the offseason.</p>
-
-</section>
-
-
-
-<!-- ===============================
-TRADE
-=============================== -->
-
-<section id="tradePage">
-
-<h1>Trade Machine</h1>
-
-<h3>Team A</h3>
-
-<select>
-<option>Player</option>
-</select>
-
-<h3>Team B</h3>
-
-<select>
-<option>Player</option>
-</select>
-
-<button>Evaluate Trade</button>
-
-</section>
-
-
-
-<!-- ===============================
-TEAM STATS
-=============================== -->
-
-<section id="teamStatsPage">
-
-<h1>Team Stats</h1>
-
-<p>Sort by points for, points against, or percentage.</p>
-
-</section>
-
-
-
-<!-- ===============================
-PLAYER STATS
-=============================== -->
-
-<section id="playerStatsPage">
-
-<h1>Player Stats</h1>
-
-<p>Your team statistics and league leaders.</p>
-
-</section>
-
-
-
-<!-- ===============================
-AWARDS
-=============================== -->
-
-<section id="awardsPage">
-
-<h1>Awards</h1>
-
-<ul>
-<li>Brownlow Medal</li>
-<li>Coleman Medal</li>
-<li>Norm Smith Medal</li>
-</ul>
-
-</section>
-
-
-
-<!-- ===============================
-FINALS
-=============================== -->
-
-<section id="finalsPage">
-
-<h1>Finals Series</h1>
-
-<p>Finals bracket and results.</p>
-
-</section>
-
-
+<main>
+
+  <!-- Home -->
+  <section id="homePage">
+    <h1>Home</h1>
+    <p>Welcome to your AFL career! Overview of your team, next match, and ladder.</p>
+    <h3>Teams Overview</h3>
+    <ul>
+      <li>Collingwood Football Club - Nick Daicos (MID) - $900,000 - Overall: 95</li>
+      <li>Carlton Football Club - Patrick Cripps (MID) - $850,000 - Overall: 92</li>
+      <li>Essendon Football Club - Zach Merrett (MID) - $800,000 - Overall: 90</li>
+      <li>Richmond Football Club - Jack Riewoldt (FF) - $780,000 - Overall: 88</li>
+      <li>Geelong Football Club - Patrick Dangerfield (MID) - $920,000 - Overall: 94</li>
+      <li>Brisbane Lions - Dayne Zorko (MID) - $810,000 - Overall: 89</li>
+      <li>West Coast Eagles - Nic Naitanui (RUC) - $870,000 - Overall: 93</li>
+      <li>Sydney Swans - Lance Franklin (FF) - $950,000 - Overall: 96</li>
+      <li>Hawthorn Football Club - Tom Mitchell (MID) - $880,000 - Overall: 92</li>
+      <li>Adelaide Crows - Taylor Walker (FF) - $860,000 - Overall: 91</li>
+      <li>St Kilda Football Club - Jack Steele (MID) - $800,000 - Overall: 89</li>
+      <li>Port Adelaide - Travis Boak (MID) - $830,000 - Overall: 90</li>
+      <li>Melbourne Football Club - Christian Petracca (MID) - $910,000 - Overall: 94</li>
+      <li>Gold Coast Suns - Matt Rowell (MID) - $770,000 - Overall: 88</li>
+      <li>Western Bulldogs - Marcus Bontempelli (MID) - $920,000 - Overall: 95</li>
+      <li>Fremantle Dockers - Nat Fyfe (MID) - $940,000 - Overall: 96</li>
+      <li>North Melbourne Kangaroos - Ben Cunnington (MID) - $830,000 - Overall: 90</li>
+      <li>Greater Western Sydney Giants - Stephen Coniglio (MID) - $890,000 - Overall: 92</li>
+    </ul>
+  </section>
+
+  <!-- Fixture/Results -->
+  <section id="fixturePage">
+    <h1>Fixture / Results</h1>
+    <p>All teams’ results and upcoming fixtures appear here. Use arrows to toggle rounds.</p>
+  </section>
+
+  <!-- Team Lineup -->
+  <section id="teamLineupPage">
+    <h1>Team Lineup</h1>
+    <p>Select your best 22, bench, reserves. Injured/suspended in red.</p>
+    <!-- Example layout -->
+    <div class="lineup">
+      <h3>Collingwood</h3>
+      <div>Nick Daicos (MID) - $900,000 - Overall: 95</div>
+      <h3>Carlton</h3>
+      <div>Patrick Cripps (MID) - $850,000 - Overall: 92</div>
+      <!-- Add all other teams here similarly -->
+    </div>
+  </section>
+
+  <!-- Team Tactics -->
+  <section id="teamTacticsPage">
+    <h1>Team Tactics</h1>
+    <p>Set game speed, attack/defense/pressure, ball movement, spare, captain, tagger, kickouts, backup rucks.</p>
+  </section>
+
+  <!-- Coaching -->
+  <section id="coachingPage">
+    <h1>Coaching</h1>
+    <p>Coach, assistants, doctors, list managers, free agents with potential. Ratings out of 100.</p>
+  </section>
+
+  <!-- Drafting -->
+  <section id="draftPage">
+    <h1>Drafting</h1>
+    <p>Draft prospects. Scouts reveal stats over season depending on level.</p>
+  </section>
+
+  <!-- Free Agency -->
+  <section id="freeAgencyPage">
+    <h1>Free Agency</h1>
+    <p>Sign or resign players. Show contract (years × salary) and eligibility.</p>
+  </section>
+
+  <!-- Trade -->
+  <section id="tradePage">
+    <h1>Trade</h1>
+    <p>Trade players/draft picks. Max 3 player difference, subtract 2000 from incoming value. Notify if invalid.</p>
+  </section>
+
+  <!-- Team Stats -->
+  <section id="teamStatsPage">
+    <h1>Team Stats</h1>
+    <p>Ladder, points for/against, sorting options.</p>
+  </section>
+
+  <!-- Player Stats -->
+  <section id="playerStatsPage">
+    <h1>Player Stats</h1>
+    <p>Player stats: kick, handball, mark, tackle, speed, stamina, footy IQ, clutch, strength, discipline, rucking. Calculate overall.</p>
+  </section>
+
+  <!-- Awards -->
+  <section id="awardsPage">
+    <h1>Awards</h1>
+    <p>Brownlow and other medals calculated after Grand Final.</p>
+  </section>
+
+  <!-- Finals -->
+  <section id="finalsPage">
+    <h1>Finals</h1>
+    <p>Finals brackets, fixtures, and results.</p>
+  </section>
 
 </main>
 
-
-
-<!-- ===============================
-JAVASCRIPT LINK
-=============================== -->
-
+<!-- JS -->
 <script src="script.js"></script>
-
 
 </body>
 </html>
-```
