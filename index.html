@@ -1,166 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AFL Career Mode Simulator</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>AFL Career Mode</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Sidebar Menu -->
+  <nav id="sidebar">
+    <h2>Career Mode</h2>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('fixtures')">Fixtures & Results</button>
+    <button onclick="showSection('lineup')">Team Lineup</button>
+    <button onclick="showSection('tactics')">Team Tactics</button>
+    <button onclick="showSection('coaching')">Coaching</button>
+    <button onclick="showSection('draft')">Drafting</button>
+    <button onclick="showSection('freeAgency')">Free Agency</button>
+    <button onclick="showSection('trade')">Trade</button>
+    <button onclick="showSection('teamStats')">Team Stats</button>
+    <button onclick="showSection('playerStats')">Player Stats</button>
+    <button onclick="showSection('awards')">Awards</button>
+    <button onclick="showSection('finals')">Finals</button>
+  </nav>
 
-<!-- Sidebar -->
-<nav id="sidebar">
-  <h2 style="color:white;">AFL Career Mode</h2>
-  <button data-page="homePage">Home</button>
-  <button data-page="fixturePage">Fixture/Results</button>
-  <button data-page="teamLineupPage">Team Lineup</button>
-  <button data-page="teamTacticsPage">Team Tactics</button>
-  <button data-page="coachingPage">Coaching</button>
-  <button data-page="draftPage">Drafting</button>
-  <button data-page="freeAgencyPage">Free Agency</button>
-  <button data-page="tradePage">Trade</button>
-  <button data-page="teamStatsPage">Team Stats</button>
-  <button data-page="playerStatsPage">Player Stats</button>
-  <button data-page="awardsPage">Awards</button>
-  <button data-page="finalsPage">Finals</button>
-</nav>
+  <!-- Main Content Area -->
+  <main>
+    <!-- Home Tab -->
+    <section id="home">
+      <div id="selectedTeamBox"></div>
+      <div id="nextFixtureBox"></div>
+      <div id="ladderBox"></div>
+    </section>
 
-<main>
+    <!-- Fixtures & Results -->
+    <section id="fixtures">
+      <h1>Fixtures & Results</h1>
+      <div id="roundControls">
+        <button id="prevRound">&lt; Previous Round</button>
+        <span id="roundDisplay">Round 1</span>
+        <button id="nextRound">Next Round &gt;</button>
+      </div>
+      <div id="fixturesContent"></div>
+    </section>
 
-  <!-- Home -->
-  <section id="homePage">
-    <h1>Home</h1>
-    <p>Welcome to your AFL career! Overview of your team, next match, and ladder.</p>
-    <h3>Teams Overview</h3>
-    <ul>
-      <li>Collingwood Football Club - Nick Daicos (MID) - $900,000 - Overall: 95</li>
-      <li>Carlton Football Club - Patrick Cripps (MID) - $850,000 - Overall: 92</li>
-      <li>Essendon Football Club - Zach Merrett (MID) - $800,000 - Overall: 90</li>
-      <li>Richmond Football Club - Jack Riewoldt (FF) - $780,000 - Overall: 88</li>
-      <li>Geelong Football Club - Patrick Dangerfield (MID) - $920,000 - Overall: 94</li>
-      <li>Brisbane Lions - Dayne Zorko (MID) - $810,000 - Overall: 89</li>
-      <li>West Coast Eagles - Nic Naitanui (RUC) - $870,000 - Overall: 93</li>
-      <li>Sydney Swans - Lance Franklin (FF) - $950,000 - Overall: 96</li>
-      <li>Hawthorn Football Club - Tom Mitchell (MID) - $880,000 - Overall: 92</li>
-      <li>Adelaide Crows - Taylor Walker (FF) - $860,000 - Overall: 91</li>
-      <li>St Kilda Football Club - Jack Steele (MID) - $800,000 - Overall: 89</li>
-      <li>Port Adelaide - Travis Boak (MID) - $830,000 - Overall: 90</li>
-      <li>Melbourne Football Club - Christian Petracca (MID) - $910,000 - Overall: 94</li>
-      <li>Gold Coast Suns - Matt Rowell (MID) - $770,000 - Overall: 88</li>
-      <li>Western Bulldogs - Marcus Bontempelli (MID) - $920,000 - Overall: 95</li>
-      <li>Fremantle Dockers - Nat Fyfe (MID) - $940,000 - Overall: 96</li>
-      <li>North Melbourne Kangaroos - Ben Cunnington (MID) - $830,000 - Overall: 90</li>
-      <li>Greater Western Sydney Giants - Stephen Coniglio (MID) - $890,000 - Overall: 92</li>
-    </ul>
-  </section>
+    <!-- Team Lineup -->
+    <section id="lineup">
+      <h1>Team Lineup</h1>
+      <div id="lineupWrapper">
+        <div id="selectedTeamLineup"></div>
+        <div id="otherTeamSelector">
+          <label for="otherTeamSelect">View Other Team:</label>
+          <select id="otherTeamSelect"></select>
+        </div>
+      </div>
+      <div id="teamRatings"></div>
+    </section>
 
-  <!-- Fixture/Results -->
-  <section id="fixturePage">
-    <h1>Fixture / Results</h1>
-    <p>All teams’ results and upcoming fixtures appear here. Use arrows to toggle rounds.</p>
-  </section>
+    <!-- Team Tactics -->
+    <section id="tactics">
+      <h1>Team Tactics</h1>
+      <div id="tacticsPage1"></div>
+      <div id="tacticsPage2"></div>
+    </section>
 
-  <!-- Team Lineup -->
-  <section id="teamLineupPage">
-    <h1>Team Lineup</h1>
-    <p>Select your best 22, bench, reserves. Injured/suspended in red.</p>
-    <div class="lineup">
-      <h3>Collingwood</h3>
-      <div>Nick Daicos (MID) - $900,000 - Overall: 95</div>
-      <h3>Carlton</h3>
-      <div>Patrick Cripps (MID) - $850,000 - Overall: 92</div>
-      <h3>Essendon</h3>
-      <div>Zach Merrett (MID) - $800,000 - Overall: 90</div>
-      <h3>Richmond</h3>
-      <div>Jack Riewoldt (FF) - $780,000 - Overall: 88</div>
-      <h3>Geelong</h3>
-      <div>Patrick Dangerfield (MID) - $920,000 - Overall: 94</div>
-      <h3>Brisbane Lions</h3>
-      <div>Dayne Zorko (MID) - $810,000 - Overall: 89</div>
-      <h3>West Coast Eagles</h3>
-      <div>Nic Naitanui (RUC) - $870,000 - Overall: 93</div>
-      <h3>Sydney Swans</h3>
-      <div>Lance Franklin (FF) - $950,000 - Overall: 96</div>
-      <h3>Hawthorn</h3>
-      <div>Tom Mitchell (MID) - $880,000 - Overall: 92</div>
-      <h3>Adelaide Crows</h3>
-      <div>Taylor Walker (FF) - $860,000 - Overall: 91</div>
-      <h3>St Kilda</h3>
-      <div>Jack Steele (MID) - $800,000 - Overall: 89</div>
-      <h3>Port Adelaide</h3>
-      <div>Travis Boak (MID) - $830,000 - Overall: 90</div>
-      <h3>Melbourne</h3>
-      <div>Christian Petracca (MID) - $910,000 - Overall: 94</div>
-      <h3>Gold Coast Suns</h3>
-      <div>Matt Rowell (MID) - $770,000 - Overall: 88</div>
-      <h3>Western Bulldogs</h3>
-      <div>Marcus Bontempelli (MID) - $920,000 - Overall: 95</div>
-      <h3>Fremantle</h3>
-      <div>Nat Fyfe (MID) - $940,000 - Overall: 96</div>
-      <h3>North Melbourne</h3>
-      <div>Ben Cunnington (MID) - $830,000 - Overall: 90</div>
-      <h3>GWS Giants</h3>
-      <div>Stephen Coniglio (MID) - $890,000 - Overall: 92</div>
-    </div>
-  </section>
+    <!-- Coaching -->
+    <section id="coaching">
+      <h1>Coaching Staff</h1>
+      <div id="headCoachBox"></div>
+      <div id="assistantCoachesBox"></div>
+      <div id="scoutsBox"></div>
+      <div id="medicalBox"></div>
+      <div id="freeAgentCoachesBox"></div>
+    </section>
 
-  <!-- Team Tactics -->
-  <section id="teamTacticsPage">
-    <h1>Team Tactics</h1>
-    <p>Set game speed, attack/defense/pressure, ball movement, spare, captain, tagger, kickouts, backup rucks.</p>
-  </section>
+    <!-- Drafting -->
+    <section id="draft">
+      <h1>Draft Board</h1>
+      <p id="draftHints">Hint: Focus on positions or types your team needs.</p>
+      <div id="draftBoard"></div>
+    </section>
 
-  <!-- Coaching -->
-  <section id="coachingPage">
-    <h1>Coaching</h1>
-    <p>Coach, assistants, doctors, list managers, free agents with potential. Ratings out of 100.</p>
-  </section>
+    <!-- Free Agency -->
+    <section id="freeAgency">
+      <h1>Free Agency</h1>
+      <div id="freeAgencyContent"></div>
+    </section>
 
-  <!-- Drafting -->
-  <section id="draftPage">
-    <h1>Drafting</h1>
-    <p>Draft prospects. Scouts reveal stats over season depending on level.</p>
-  </section>
+    <!-- Trade -->
+    <section id="trade">
+      <h1>Trade Machine</h1>
+      <div id="tradeYourTeam"></div>
+      <div id="tradeOtherTeams"></div>
+    </section>
 
-  <!-- Free Agency -->
-  <section id="freeAgencyPage">
-    <h1>Free Agency</h1>
-    <p>Sign or resign players. Show contract (years × salary) and eligibility.</p>
-  </section>
+    <!-- Team Stats -->
+    <section id="teamStats">
+      <h1>Team Stats</h1>
+      <div id="teamStatsTable"></div>
+    </section>
 
-  <!-- Trade -->
-  <section id="tradePage">
-    <h1>Trade</h1>
-    <p>Trade players/draft picks. Max 3 player difference, subtract 2000 from incoming value. Notify if invalid.</p>
-  </section>
+    <!-- Player Stats -->
+    <section id="playerStats">
+      <h1>Player Stats</h1>
+      <div id="playerStatsContent"></div>
+    </section>
 
-  <!-- Team Stats -->
-  <section id="teamStatsPage">
-    <h1>Team Stats</h1>
-    <p>Ladder, points for/against, sorting options.</p>
-  </section>
+    <!-- Awards -->
+    <section id="awards">
+      <h1>Awards</h1>
+      <div id="awardsContent"></div>
+    </section>
 
-  <!-- Player Stats -->
-  <section id="playerStatsPage">
-    <h1>Player Stats</h1>
-    <p>Player stats: kick, handball, mark, tackle, speed, stamina, footy IQ, clutch, strength, discipline, rucking. Calculate overall and show potential, progression/regression.</p>
-  </section>
+    <!-- Finals -->
+    <section id="finals">
+      <h1>Finals</h1>
+      <div id="finalsBracket"></div>
+      <div id="finalsStats"></div>
+    </section>
+  </main>
 
-  <!-- Awards -->
-  <section id="awardsPage">
-    <h1>Awards</h1>
-    <p>Brownlow and other medals calculated after Grand Final.</p>
-  </section>
+  <!-- JS Link -->
+  <script src="script.js"></script>
 
-  <!-- Finals -->
-  <section id="finalsPage">
-    <h1>Finals</h1>
-    <p>Finals brackets, fixtures, and results.</p>
-  </section>
+  <!-- Placeholder Data Section -->
+  <script>
+    // --- Teams and Example Players ---
+    const players = [
+      { team: "Collingwood", name: "Nick Daicos", position: "MID", age: 19, salary: 900000, potential: { min: 92, max: 99 }, stats: { kick: 90, handball: 85, mark: 88, tackle: 82, speed: 90, stamina: 88, footyIQ: 94, clutch: 85, strength: 80, discipline: 90, rucking: 60 } },
+      { team: "Carlton", name: "Patrick Cripps", position: "MID", age: 27, salary: 1000000, potential: { min: 95, max: 99 }, stats: { kick: 92, handball: 88, mark: 85, tackle: 90, speed: 86, stamina: 90, footyIQ: 92, clutch: 88, strength: 87, discipline: 89, rucking: 65 } },
+      { team: "Essendon", name: "Zach Merrett", position: "MID", age: 26, salary: 850000, potential: { min: 92, max: 98 }, stats: { kick: 88, handball: 86, mark: 83, tackle: 85, speed: 87, stamina: 88, footyIQ: 90, clutch: 87, strength: 85, discipline: 88, rucking: 60 } },
+      { team: "Richmond", name: "Jack Riewoldt", position: "FF", age: 31, salary: 800000, potential: { min: 88, max: 95 }, stats: { kick: 85, handball: 80, mark: 92, tackle: 78, speed: 80, stamina: 82, footyIQ: 88, clutch: 90, strength: 86, discipline: 85, rucking: 55 } },
+      // Add other teams similarly...
+    ];
 
-</main>
+    // --- Placeholder for Ladder Data ---
+    const ladderData = [
+      { pos: 1, team: "Collingwood", points: 0, percentage: 100 },
+      { pos: 2, team: "Carlton", points: 0, percentage: 100 },
+      { pos: 3, team: "Essendon", points: 0, percentage: 100 },
+      { pos: 4, team: "Richmond", points: 0, percentage: 100 },
+      // Continue for all 18 AFL teams
+    ];
 
-<script src="script.js"></script>
-
+    // Placeholder for Fixtures and Lineups, you will populate this later
+    const fixtures = []; // Array of rounds -> games
+  </script>
 </body>
 </html>
