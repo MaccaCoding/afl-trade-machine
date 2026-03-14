@@ -113,6 +113,84 @@ function renderNextFixture() {
   container.innerHTML += `<p>${nextGame.teamB} record: ${Math.floor(Math.random()*10)}W-${Math.floor(Math.random()*10)}L</p>`;
 }
 
+  <section id="teamTacticsTab">
+  <h3>Team Tactics</h3>
+
+  <!-- Page 1: Game Plan -->
+  <div id="tacticsPage1">
+    <h4>Game Style</h4>
+    <label>Play Style:
+      <select id="playStyle">
+        <option value="attacking">Attacking</option>
+        <option value="balanced" selected>Balanced</option>
+        <option value="defensive">Defensive</option>
+        <option value="pressured">Pressured</option>
+        <option value="kick-mark">Kick-Mark</option>
+      </select>
+    </label>
+    <br>
+    <label>Ball Movement:
+      <select id="ballMovement">
+        <option value="wide">Wide</option>
+        <option value="balanced" selected>Balanced</option>
+        <option value="narrow">Narrow</option>
+      </select>
+    </label>
+    <br>
+    <label>Spare Player:
+      <select id="sparePlayer">
+        <option value="none" selected>None</option>
+        <option value="forward">Forward</option>
+        <option value="midfield">Midfield</option>
+        <option value="backline">Backline</option>
+      </select>
+    </label>
+  </div>
+
+  <!-- Page 2: Leadership & Special Roles -->
+  <div id="tacticsPage2" style="display:none;">
+    <h4>Leadership & Special Roles</h4>
+    <label>Captain:
+      <select id="captainSelect"></select>
+    </label>
+    <br>
+    <label>Leadership Group (3):
+      <select id="leadership1"></select>
+      <select id="leadership2"></select>
+      <select id="leadership3"></select>
+    </label>
+    <br>
+    <label>Kickout Player:
+      <select id="kickoutSelect"></select>
+    </label>
+    <br>
+    <label>Backup Rucks 1 & 2:
+      <select id="backupRuck1"></select>
+      <select id="backupRuck2"></select>
+    </label>
+    <br>
+    <label>Backup Rucks Forward/Defensive:
+      <select id="backupForward"></select>
+      <select id="backupDefensive"></select>
+    </label>
+    <br>
+    <label>Tagger:
+      <select id="taggerSelect">
+        <option value="none" selected>None</option>
+      </select>
+    </label>
+    <label>Tag Target:
+      <select id="tagTargetSelect">
+        <option value="highest">Highest Overall</option>
+      </select>
+    </label>
+  </div>
+
+  <!-- Navigation buttons for pages -->
+  <button id="tacticsPrev">Previous</button>
+  <button id="tacticsNext">Next</button>
+</section>
+  
 // ================ Render Ladder ================
 function renderLadder() {
   const container = document.getElementById("homeLadder");
@@ -253,5 +331,6 @@ renderHome();
   <script src="home.js"></script>
   <script src="players.js"></script>
   <script src="lineup.js"></script>
+  <script src="tactics.js"></script>
 </body>
 </html>
