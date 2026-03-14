@@ -206,70 +206,147 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Show Home by default
   showSection("homePage");
-
-  function renderHome() {
+function renderHome() {
   const container = document.getElementById("homeTeams");
   container.innerHTML = "";
 
-  // Group players by team
-  const teams = {};
-  players.forEach(p => {
-    if (!teams[p.team]) teams[p.team] = [];
-    teams[p.team].push(p);
+  const controlledTeamName = "Collingwood"; // Your team
+  const nextOpponentName = "Carlton";       // Next match
+
+  // --- Get controlled team player(s) ---
+  const controlledPlayers = players.filter(p => p.team === controlledTeamName);
+  const opponentPlayers = players.filter(p => p.team === nextOpponentName);
+
+  // --- Controlled Team Box ---
+  const teamBox = document.createElement("div");
+  teamBox.style.backgroundColor = "#333";
+  teamBox.style.padding = "15px";
+  teamBox.style.borderRadius = "8px";
+  teamBox.style.marginBottom = "20px";
+
+  const teamHeader = document.createElement("h2");
+  teamHeader.textContent = `${controlledTeamName} (Your Team)`;
+  teamHeader.style.marginBottom = "10px";
+  teamBox.appendChild(teamHeader);
+
+  const teamTable = document.createElement("table");
+  teamTable.style.width = "100%";
+  teamTable.style.borderCollapse = "collapse";
+
+  const headerRow = document.createElement("tr");
+  ["Player", "Pos", "Age", "Salary", "Overall", "Potential"].forEach(title => {
+    const th = document.createElement("th");
+    th.textContent = title;
+    th.style.borderBottom = "1px solid #555";
+    th.style.padding = "5px";
+    th.style.textAlign = "left";
+    headerRow.appendChild(th);
+  });
+  teamTable.appendChild(headerRow);
+
+  controlledPlayers.forEach(p => {
+    const row = document.createElement("tr");
+    const overall = calculateOverall(p);
+    const cells = [
+      p.name,
+      p.position,
+      p.age,
+      `$${p.salary.toLocaleString()}`,
+      overall,
+      `${p.potential.min}-${p.potential.max}`
+    ];
+    cells.forEach(c => {
+      const td = document.createElement("td");
+      td.textContent = c;
+      td.style.padding = "5px";
+      td.style.borderBottom = "1px solid #555";
+      row.appendChild(td);
+    });
+    teamTable.appendChild(row);
   });
 
-  for (const teamName in teams) {
-    const teamBox = document.createElement("div");
-    teamBox.style.backgroundColor = "#333";
-    teamBox.style.padding = "15px";
-    teamBox.style.borderRadius = "8px";
-    teamBox.style.marginBottom = "15px";
+  teamBox.appendChild(teamTable);
+  container.appendChild(teamBox);
 
-    // Team header
-    const teamHeader = document.createElement("h3");
-    teamHeader.textContent = `${teamName} - Next match: TBD - Ladder: TBD`;
-    teamHeader.style.marginBottom = "10px";
-    teamBox.appendChild(teamHeader);
+  // --- Next Opponent Box ---
+  const opponentBox = document.createElement("div");
+  opponentBox.style.backgroundColor = "#444";
+  opponentBox.style.padding = "15px";
+  opponentBox.style.borderRadius = "8px";
+  opponentBox.style.marginBottom = "20px";
 
-    // Players table
-    const table = document.createElement("table");
-    table.style.width = "100%";
-    table.style.borderCollapse = "collapse";
+  const opponentHeader = document.createElement("h3");
+  opponentHeader.textContent = `Next Match: ${controlledTeamName} vs ${nextOpponentName}`;
+  opponentHeader.style.marginBottom = "10px";
+  opponentBox.appendChild(opponentHeader);
 
-    const headerRow = document.createElement("tr");
-    ["Player", "Pos", "Age", "Salary", "Overall", "Potential"].forEach(title => {
-      const th = document.createElement("th");
-      th.textContent = title;
-      th.style.borderBottom = "1px solid #555";
-      th.style.padding = "5px";
-      th.style.textAlign = "left";
-      table.appendChild(th);
+  const opponentRecord = document.createElement("p");
+  opponentRecord.textContent = `${controlledTeamName} Record: 0-0 | ${nextOpponentName} Record: 0-0`; // Placeholder
+  opponentBox.appendChild(opponentRecord);
+
+  container.appendChild(opponentBox);
+
+  // --- Ladder Box ---
+  const ladderBox = document.createElement("div");
+  ladderBox.style.backgroundColor = "#333";
+  ladderBox.style.padding = "15px";
+  ladderBox.style.borderRadius = "8px";
+
+  const ladderHeader = document.createElement("h3");
+  ladderHeader.textContent = "Ladder";
+  ladderHeader.style.marginBottom = "10px";
+  ladderBox.appendChild(ladderHeader);
+
+  const ladderTable = document.createElement("table");
+  ladderTable.style.width = "100%";
+  ladderTable.style.borderCollapse = "collapse";
+
+  const ladderHeaderRow = document.createElement("tr");
+  ["Pos", "Team", "Points"].forEach(title => {
+    const th = document.createElement("th");
+    th.textContent = title;
+    th.style.borderBottom = "1px solid #555";
+    th.style.padding = "5px";
+    th.style.textAlign = "left";
+    ladderHeaderRow.appendChild(th);
+  });
+  ladderTable.appendChild(ladderHeaderRow);
+
+  // Placeholder ladder data
+  const ladderData = [
+    { pos: 1, team: "Collingwood", points: 0 },
+    { pos: 2, team: "Carlton", points: 0 },
+    { pos: 3, team: "Essendon", points: 0 },
+    { pos: 4, team: "Richmond", points: 0 },
+    { pos: 5, team: "Geelong", points: 0 },
+    { pos: 6, team: "Brisbane Lions", points: 0 },
+    { pos: 7, team: "West Coast Eagles", points: 0 },
+    { pos: 8, team: "Sydney Swans", points: 0 },
+    { pos: 9, team: "Hawthorn", points: 0 },
+    { pos:10, team: "Adelaide Crows", points: 0 },
+    { pos:11, team: "St Kilda", points: 0 },
+    { pos:12, team: "Port Adelaide", points: 0 },
+    { pos:13, team: "Melbourne", points: 0 },
+    { pos:14, team: "Gold Coast Suns", points: 0 },
+    { pos:15, team: "Western Bulldogs", points: 0 },
+    { pos:16, team: "Fremantle", points: 0 },
+    { pos:17, team: "North Melbourne", points: 0 },
+    { pos:18, team: "GWS Giants", points: 0 }
+  ];
+
+  ladderData.forEach(team => {
+    const row = document.createElement("tr");
+    [team.pos, team.team, team.points].forEach(c => {
+      const td = document.createElement("td");
+      td.textContent = c;
+      td.style.padding = "5px";
+      td.style.borderBottom = "1px solid #555";
+      row.appendChild(td);
     });
-    table.appendChild(headerRow);
+    ladderTable.appendChild(row);
+  });
 
-    teams[teamName].forEach(p => {
-      const row = document.createElement("tr");
-      const overall = calculateOverall(p);
-      const cells = [
-        p.name,
-        p.position,
-        p.age,
-        `$${p.salary.toLocaleString()}`,
-        overall,
-        `${p.potential.min}-${p.potential.max}`
-      ];
-      cells.forEach(c => {
-        const td = document.createElement("td");
-        td.textContent = c;
-        td.style.padding = "5px";
-        td.style.borderBottom = "1px solid #555";
-        row.appendChild(td);
-      });
-      table.appendChild(row);
-    });
-
-    teamBox.appendChild(table);
-    container.appendChild(teamBox);
-  }
+  ladderBox.appendChild(ladderTable);
+  container.appendChild(ladderBox);
 }
 });
