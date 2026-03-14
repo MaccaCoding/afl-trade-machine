@@ -3,27 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <title>AFL Career Mode</title>
+<link rel="stylesheet" href="style.css">
 <style>
-/* === Base Styles === */
-body {
-  margin: 0; font-family: Arial, sans-serif; background: #1b1b1b; color: #fff;
-}
-nav#sidebar {
-  width: 220px; background: #222; height: 100vh; position: fixed; padding: 20px; overflow-y: auto;
-}
-nav#sidebar h2 { color: #fff; margin-bottom: 20px; text-align: center;}
-nav#sidebar button { width: 100%; margin-bottom: 10px; padding: 8px; background: #333; color: #fff; border: none; cursor: pointer; }
-nav#sidebar button:hover { background: #555; }
-main { margin-left: 240px; padding: 20px; }
-section { display: none; }
-table { width: 100%; border-collapse: collapse; margin-bottom: 20px;}
-table, th, td { border: 1px solid #555; }
-th, td { padding: 5px; text-align: left; }
-.highlight { background: yellow; color: black; }
-.injured { color: red; }
-#lineupWrapper { display: flex; gap: 20px; }
-/* Buttons for tactics page */
-#tacticsPrev, #tacticsNext { margin: 10px; padding: 5px 10px; cursor: pointer; }
+  /* Base CSS */
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #1b1b1b;
+    color: #fff;
+  }
+  nav#sidebar {
+    width: 220px;
+    background: #222;
+    height: 100vh;
+    position: fixed;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  nav#sidebar h2 { color: #fff; margin-bottom: 20px; text-align: center; }
+  nav#sidebar button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  nav#sidebar button:hover { background: #555; }
+  main { margin-left: 240px; padding: 20px; }
+  section { display: none; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  table, th, td { border: 1px solid #555; }
+  th, td { padding: 5px; text-align: left; }
+  .highlight { background: yellow; color: black; }
+  .injured { color: red; }
 </style>
 </head>
 <body>
@@ -32,8 +46,17 @@ th, td { padding: 5px; text-align: left; }
 <nav id="sidebar">
   <h2>Career Mode</h2>
   <button onclick="showSection('home')">Home</button>
+  <button onclick="showSection('fixtures')">Fixtures & Results</button>
   <button onclick="showSection('lineup')">Team Lineup</button>
   <button onclick="showSection('tactics')">Team Tactics</button>
+  <button onclick="showSection('coaching')">Coaching</button>
+  <button onclick="showSection('draft')">Drafting</button>
+  <button onclick="showSection('freeAgency')">Free Agency</button>
+  <button onclick="showSection('trade')">Trade</button>
+  <button onclick="showSection('teamStats')">Team Stats</button>
+  <button onclick="showSection('playerStats')">Player Stats</button>
+  <button onclick="showSection('awards')">Awards</button>
+  <button onclick="showSection('finals')">Finals</button>
 </nav>
 
 <!-- Main Content -->
@@ -45,232 +68,101 @@ th, td { padding: 5px; text-align: left; }
     <div id="homeLadder"></div>
   </section>
 
+  <!-- Fixtures & Results -->
+  <section id="fixtures">
+    <h1>Fixtures & Results</h1>
+    <div id="roundControls">
+      <button id="prevRound">&lt; Previous Round</button>
+      <span id="roundDisplay">Round 1</span>
+      <button id="nextRound">Next Round &gt;</button>
+    </div>
+    <div id="fixturesContent"></div>
+  </section>
+
   <!-- Team Lineup -->
   <section id="lineup">
-    <div id="selectedTeamLineup"></div>
-    <div>
-      <label for="otherTeamSelect">View Other Team:</label>
-      <select id="otherTeamSelect"></select>
+    <h1>Team Lineup</h1>
+    <div id="lineupWrapper">
+      <div id="selectedTeamLineup"></div>
+      <div id="otherTeamSelector">
+        <label for="otherTeamSelect">View Other Team:</label>
+        <select id="otherTeamSelect"></select>
+      </div>
     </div>
     <div id="teamRatings"></div>
   </section>
 
   <!-- Team Tactics -->
   <section id="tactics">
-    <h3>Team Tactics</h3>
-    <div id="tacticsPage1">
-      <h4>Game Style</h4>
-      <label>Play Style:
-        <select id="playStyle">
-          <option value="attacking">Attacking</option>
-          <option value="balanced" selected>Balanced</option>
-          <option value="defensive">Defensive</option>
-          <option value="pressured">Pressured</option>
-          <option value="kick-mark">Kick-Mark</option>
-        </select>
-      </label><br>
-      <label>Ball Movement:
-        <select id="ballMovement">
-          <option value="wide">Wide</option>
-          <option value="balanced" selected>Balanced</option>
-          <option value="narrow">Narrow</option>
-        </select>
-      </label><br>
-      <label>Spare Player:
-        <select id="sparePlayer">
-          <option value="none" selected>None</option>
-          <option value="forward">Forward</option>
-          <option value="midfield">Midfield</option>
-          <option value="backline">Backline</option>
-        </select>
-      </label>
-    </div>
-    <div id="tacticsPage2" style="display:none;">
-      <h4>Leadership & Special Roles</h4>
-      <label>Captain: <select id="captainSelect"></select></label><br>
-      <label>Leadership Group: 
-        <select id="leadership1"></select>
-        <select id="leadership2"></select>
-        <select id="leadership3"></select>
-      </label>
-    </div>
-    <button id="tacticsPrev">Previous</button>
-    <button id="tacticsNext">Next</button>
+    <h1>Team Tactics</h1>
+    <div id="tacticsPage1"></div>
+    <div id="tacticsPage2"></div>
+  </section>
+
+  <!-- Coaching -->
+  <section id="coaching">
+    <h1>Coaching Staff</h1>
+    <div id="headCoachBox"></div>
+    <div id="assistantCoachesBox"></div>
+    <div id="scoutsBox"></div>
+    <div id="medicalBox"></div>
+    <div id="freeAgentCoachesBox"></div>
+  </section>
+
+  <!-- Drafting -->
+  <section id="draft">
+    <h1>Draft Board</h1>
+    <p id="draftHints">Hint: Focus on positions or types your team needs.</p>
+    <div id="draftBoard"></div>
+  </section>
+
+  <!-- Free Agency -->
+  <section id="freeAgency">
+    <h1>Free Agency</h1>
+    <div id="freeAgencyContent"></div>
+  </section>
+
+  <!-- Trade -->
+  <section id="trade">
+    <h1>Trade Machine</h1>
+    <div id="tradeYourTeam"></div>
+    <div id="tradeOtherTeams"></div>
+  </section>
+
+  <!-- Team Stats -->
+  <section id="teamStats">
+    <h1>Team Stats</h1>
+    <div id="teamStatsTable"></div>
+  </section>
+
+  <!-- Player Stats -->
+  <section id="playerStats">
+    <h1>Player Stats</h1>
+    <div id="playerStatsContent"></div>
+  </section>
+
+  <!-- Awards -->
+  <section id="awards">
+    <h1>Awards</h1>
+    <div id="awardsContent"></div>
+  </section>
+
+  <!-- Finals -->
+  <section id="finals">
+    <h1>Finals</h1>
+    <div id="finalsBracket"></div>
+    <div id="finalsStats"></div>
   </section>
 </main>
 
-<script>
-// ================== Data ==================
-let selectedTeam = "Collingwood"; // controlled team
-
-const aflTeams = [
-  "Adelaide","Brisbane","Carlton","Collingwood","Essendon","Fremantle",
-  "Geelong","Gold Coast","Greater Western Sydney","Hawthorn","Melbourne",
-  "North Melbourne","Port Adelaide","Richmond","St Kilda","Sydney",
-  "West Coast","Western Bulldogs"
-];
-
-const players = [
-  {name:"Nick Daicos", team:"Collingwood", position:"Midfield", age:19, overall:95, salary:900000, contractYears:4, offence:90, defence:85, injured:false},
-  {name:"Patrick Cripps", team:"Carlton", position:"Midfield", age:26, overall:92, salary:850000, contractYears:3, offence:88, defence:87, injured:false},
-  {name:"Jack Riewoldt", team:"Richmond", position:"Full Forward", age:32, overall:89, salary:800000, contractYears:2, offence:90, defence:80, injured:false},
-  {name:"Jeremy Cameron", team:"Geelong", position:"Full Forward", age:30, overall:88, salary:780000, contractYears:2, offence:87, defence:82, injured:false},
-  {name:"Marcus Bontempelli", team:"Western Bulldogs", position:"Midfield", age:25, overall:94, salary:880000, contractYears:3, offence:89, defence:86, injured:false}
-];
-
-// Ladder sample
-let ladder = aflTeams.map((team, idx)=>{
-  return { rank: idx+1, team, points: Math.floor(Math.random()*50+20), percentage: (Math.random()*50+80).toFixed(2) };
-});
-
-// Fixtures sample (round 1)
-const fixtures = [
-  { round:1, games:[
-    {teamA:"Collingwood", teamB:"Carlton"},
-    {teamA:"Essendon", teamB:"Geelong"},
-    {teamA:"Adelaide", teamB:"Brisbane"},
-    {teamA:"Fremantle", teamB:"Sydney"},
-    {teamA:"Richmond", teamB:"Port Adelaide"}
-  ]}
-];
-
-// ================== Navigation ==================
-function showSection(id){
-  document.querySelectorAll("main section").forEach(sec=>sec.style.display="none");
-  document.getElementById(id).style.display="block";
-
-  if(id==="home") renderHome();
-  if(id==="lineup") renderLineup();
-}
-showSection("home"); // default
-
-// ================== Home Functions ==================
-function renderSelectedTeam(){
-  const container = document.getElementById("homeSelectedTeam");
-  const teamPlayers = players.filter(p=>p.team===selectedTeam);
-  let html=`<h3>Your Team: ${selectedTeam}</h3>
-    <table>
-      <tr><th>Name</th><th>Position</th><th>Age</th><th>Overall</th><th>Salary</th><th>Contract</th></tr>`;
-  teamPlayers.forEach(p=>{
-    const cls=p.injured?"injured":"";
-    html+=`<tr class="${cls}"><td>${p.name}</td><td>${p.position}</td><td>${p.age}</td><td>${p.overall}</td><td>$${p.salary.toLocaleString()}</td><td>${p.contractYears} yrs</td></tr>`;
-  });
-  html+="</table>";
-  container.innerHTML=html;
-}
-
-function renderNextFixture(){
-  const container=document.getElementById("homeNextFixture");
-  let nextGame;
-  for(let r of fixtures){
-    nextGame = r.games.find(g=>g.teamA===selectedTeam || g.teamB===selectedTeam);
-    if(nextGame) break;
-  }
-  if(!nextGame){ container.innerHTML="<p>No upcoming fixtures.</p>"; return; }
-  container.innerHTML=`<h3>Next Fixture</h3>
-    <p>${nextGame.teamA} vs ${nextGame.teamB}</p>
-    <p>${nextGame.teamA} record: ${Math.floor(Math.random()*10)}W-${Math.floor(Math.random()*10)}L</p>
-    <p>${nextGame.teamB} record: ${Math.floor(Math.random()*10)}W-${Math.floor(Math.random()*10)}L</p>`;
-}
-
-function renderLadder(){
-  const container=document.getElementById("homeLadder");
-  ladder.sort((a,b)=>a.rank-b.rank);
-  let html=`<h3>Ladder</h3><table><tr><th>Rank</th><th>Team</th><th>Points</th><th>%</th></tr>`;
-  ladder.forEach(t=>{
-    html+=`<tr class="${t.team===selectedTeam?'highlight':''}"><td>${t.rank}</td><td>${t.team}</td><td>${t.points}</td><td>${t.percentage}</td></tr>`;
-  });
-  html+="</table>";
-  container.innerHTML=html;
-}
-
-function renderHome(){
-  renderSelectedTeam();
-  renderNextFixture();
-  renderLadder();
-}
-
-// ================== Lineup Functions ==================
-let firstClick=null;
-function renderLineup(){
-  const container=document.getElementById("selectedTeamLineup");
-  const teamPlayers = players.filter(p=>p.team===selectedTeam);
-  let html=`<h3>${selectedTeam} Lineup</h3><table><tr><th>Position</th><th>Name</th><th>Age</th><th>Overall</th><th>Salary</th><th>Contract</th></tr>`;
-  teamPlayers.forEach(p=>{
-    const cls=p.injured?"injured":"";
-    html+=`<tr class="${cls}" data-player="${p.name}" data-position="${p.position}"><td>${p.position}</td><td>${p.name}</td><td>${p.age}</td><td>${p.overall}</td><td>$${p.salary.toLocaleString()}</td><td>${p.contractYears} yrs</td></tr>`;
-  });
-  html+="</table>";
-  container.innerHTML=html;
-
-  // other teams dropdown
-  const otherSelect=document.getElementById("otherTeamSelect");
-  otherSelect.innerHTML="";
-  aflTeams.forEach(team=>{
-    const opt=document.createElement("option");
-    opt.value=team; opt.textContent=team; otherSelect.appendChild(opt);
-  });
-  otherSelect.value=selectedTeam;
-
-  renderTeamRatings();
-}
-
-// Swap positions
-document.getElementById("selectedTeamLineup").addEventListener("click",(e)=>{
-  const tr=e.target.closest("tr");
-  if(!tr || tr.classList.contains("injured")) return;
-  if(!firstClick){ firstClick=tr; tr.style.background="#555"; } 
-  else{
-    const name1=firstClick.dataset.player;
-    const name2=tr.dataset.player;
-    const p1=players.find(p=>p.name===name1);
-    const p2=players.find(p=>p.name===name2);
-    [p1.position,p2.position]=[p2.position,p1.position];
-    firstClick.style.background="";
-    firstClick=null;
-    renderLineup();
-  }
-});
-
-// Team ratings
-function renderTeamRatings(){
-  const container=document.getElementById("teamRatings");
-  const teamPlayers = players.filter(p=>p.team===selectedTeam);
-  const offence=Math.round(teamPlayers.reduce((sum,p)=>sum+p.offence,0)/teamPlayers.length);
-  const defence=Math.round(teamPlayers.reduce((sum,p)=>sum+p.defence,0)/teamPlayers.length);
-  const overall=Math.round(teamPlayers.reduce((sum,p)=>sum+p.overall,0)/teamPlayers.length);
-  container.innerHTML=`<p>Offence: ${offence}/100</p><p>Defence: ${defence}/100</p><p>Overall: ${overall}/100</p>`;
-}
-
-// Other team view (read-only)
-document.getElementById("otherTeamSelect").addEventListener("change",(e)=>{
-  const team=e.target.value;
-  const container=document.getElementById("selectedTeamLineup");
-  const teamPlayers = players.filter(p=>p.team===team);
-  let html=`<h3>${team} Lineup (AI Controlled)</h3><table><tr><th>Position</th><th>Name</th><th>Age</th><th>Overall</th></tr>`;
-  teamPlayers.forEach(p=>{ const cls=p.injured?"injured":""; html+=`<tr class="${cls}"><td>${p.position}</td><td>${p.name}</td><td>${p.age}</td><td>${p.overall}</td></tr>` });
-  html+="</table>";
-  container.innerHTML=html;
-  renderTeamRatings();
-});
-</script>
-  <!-- Core JS for tab navigation -->
+<!-- Scripts -->
 <script src="careerTabs.js"></script>
   <script src="careerTab.js"></script>
-
-<!-- Home rendering -->
 <script src="home.js"></script>
-
-<!-- Players and team data -->
+  <script src="fixtures.js"></script>
 <script src="players.js"></script>
-
-<!-- Lineup functionality -->
 <script src="lineup.js"></script>
-
-<!-- Tactics functionality -->
 <script src="tactics.js"></script>
-
-<!-- Optional: separate scripts for other features -->
 <script src="coaching.js"></script>
 <script src="draft.js"></script>
 <script src="freeAgency.js"></script>
@@ -279,8 +171,8 @@ document.getElementById("otherTeamSelect").addEventListener("change",(e)=>{
 <script src="playerStats.js"></script>
 <script src="awards.js"></script>
 <script src="finals.js"></script>
-  <script src="fixtures.js"></script>
-   <script src="menu navigation.js"></script>
-  <script src="script.js"></script>
+  <script src="menuNavigation.js"></script>
+  <script src="scipt.js"></script>
+
 </body>
 </html>
