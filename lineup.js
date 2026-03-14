@@ -1,110 +1,119 @@
-// ================== Team Lineup Tab ==================
+// lineup.js
 
-// Controlled team (same as home tab)
-let selectedTeam = "Collingwood";
+// Example: selected team lineup data (expandable with all players)
+const positions = [
+  "Full Back", "Half Back", "Midfield", "Half Forward", "Full Forward", "Followers"
+];
 
-// Populate team dropdown
-function populateTeamDropdown() {
-  const select = document.getElementById("teamSelect");
-  select.innerHTML = "";
-  aflTeams.forEach(team=>{
-    const option = document.createElement("option");
-    option.value = team;
-    option.text = team;
-    if(team === selectedTeam) option.selected = true;
-    select.appendChild(option);
-  });
+// Render lineup table for selected team
+function renderLineup() {
+  const container = document.getElementById("selectedTeamLineup");
+  const teamPlayers = players.filter(p => p.team === selectedTeam);
 
-  // Update selected team view when changed
-  select.addEventListener("change", ()=>{
-    renderTeamLineup(select.value);
-  });
-}
+  let html = `<h3>${selectedTeam} Lineup</h3>
+    <table>
+      <tr><th>Position</th><th>Name</th><th>Age</th><th>Overall</th><th>Salary</th><th>Contract</th></tr>`;
 
-// Render lineup for a given team
-function renderTeamLineup(team) {
-  const container = document.getElementById("lineupSelectedTeam");
-  container.innerHTML = `<h3>${team} Lineup</h3>`;
-
-  // Separate starters, bench, and reserves
-  const teamPlayers = players.filter(p=>p.team === team);
-  const starters = teamPlayers.slice(0,18);
-  const bench = teamPlayers.slice(18,23);
-  const reserves = teamPlayers.slice(23);
-
-  let html = `<h4>Starters</h4><table>
-    <tr><th>Name</th><th>Position</th><th>Age</th><th>Overall</th></tr>`;
-  starters.forEach(p=>{
-    html += `<tr class="${p.injured?'injured':''} ${team!==selectedTeam?'readonly':''}" data-id="${p.id}">
-      <td>${p.name}</td>
+  teamPlayers.forEach(p => {
+    const injuredClass = p.injured ? "injured" : "";
+    html += `<tr class="${injuredClass}" data-player="${p.name}" data-position="${p.position}">
       <td>${p.position}</td>
+      <td>${p.name}</td>
       <td>${p.age}</td>
       <td>${p.overall}</td>
+      <td>$${p.salary.toLocaleString()}</td>
+      <td>${p.contractYears} yrs</td>
     </tr>`;
   });
-  html += `</table>`;
 
-  html += `<h4>Bench</h4><table>
-    <tr><th>Name</th><th>Position</th><th>Age</th><th>Overall</th></tr>`;
-  bench.forEach(p=>{
-    html += `<tr class="${p.injured?'injured':''} ${team!==selectedTeam?'readonly':''}" data-id="${p.id}">
-      <td>${p.name}</td>
-      <td>${p.position}</td>
-      <td>${p.age}</td>
-      <td>${p.overall}</td>
-    </tr>`;
-  });
   html += `</table>`;
-
-  html += `<h4>Reserves (Injured/Suspended)</h4><table>
-    <tr><th>Name</th><th>Position</th><th>Age</th><th>Overall</th></tr>`;
-  reserves.forEach(p=>{
-    html += `<tr class="injured readonly" data-id="${p.id}">
-      <td>${p.name}</td>
-      <td>${p.position}</td>
-      <td>${p.age}</td>
-      <td>${p.overall}</td>
-    </tr>`;
-  });
-  html += `</table>`;
-
   container.innerHTML = html;
 
-  // Enable swapping positions only for selectedTeam
-  if(team === selectedTeam){
-    enablePositionSwap();
-  }
-}
-
-// ================ Position Swap Logic ==================
-let firstSelected = null;
-function enablePositionSwap(){
-  const rows = document.querySelectorAll("#lineupSelectedTeam tr:not(.readonly):not(:first-child)");
-  rows.forEach(row=>{
-    row.addEventListener("click", ()=>{
-      if(!firstSelected){
-        firstSelected = row;
-        row.style.backgroundColor = "#ffc"; // highlight first selected
-      } else {
-        // Swap the players in the array
-        const id1 = firstSelected.dataset.id;
-        const id2 = row.dataset.id;
-        const idx1 = players.findIndex(p=>p.id===id1);
-        const idx2 = players.findIndex(p=>p.id===id2);
-        const temp = players[idx1];
-        players[idx1] = players[idx2];
-        players[idx2] = temp;
-
-        firstSelected.style.backgroundColor = ""; // remove highlight
-        firstSelected = null;
-
-        // Re-render the lineup
-        renderTeamLineup(selectedTeam);
-      }
-    });
+  // Update dropdown for other teams
+  const otherSelect = document.getElementById("otherTeamSelect");
+  otherSelect.innerHTML = "";
+  aflTeams.forEach(team => {
+    const option = document.createElement("option");
+    option.value = team;
+    option.textContent = team;
+    otherSelect.appendChild(option);
   });
+
+  // Set default selection to selectedTeam
+  otherSelect.value = selectedTeam;
+
+  renderTeamRatings();
 }
 
-// ================ Initialize Team Lineup Tab ==================
-populateTeamDropdown();
-renderTeamLineup(selectedTeam);
+// Swap positions when clicking players
+let firstClick = null;
+document.getElementById("selectedTeamLineup").addEventListener("click", (e) => {
+  const tr = e.target.closest("tr");
+  if (!tr) return;
+  if (tr.classList.contains("injured")) return; // cannot swap injured
+
+  if (!firstClick) {
+    firstClick = tr;
+    tr.style.background = "#555"; // highlight selection
+  } else {
+    // swap positions
+    const name1 = firstClick.dataset.player;
+    const pos1 = firstClick.dataset.position;
+    const name2 = tr.dataset.player;
+    const pos2 = tr.dataset.position;
+
+    const player1 = players.find(p => p.name === name1);
+    const player2 = players.find(p => p.name === name2);
+
+    // swap positions
+    [player1.position, player2.position] = [player2.position, player1.position];
+
+    firstClick.style.background = "";
+    firstClick = null;
+
+    renderLineup();
+  }
+});
+
+// Render team ratings
+function renderTeamRatings() {
+  const container = document.getElementById("teamRatings");
+  const teamPlayers = players.filter(p => p.team === selectedTeam);
+  const offence = Math.round(teamPlayers.reduce((sum, p) => sum + p.offence, 0)/teamPlayers.length);
+  const defence = Math.round(teamPlayers.reduce((sum, p) => sum + p.defence, 0)/teamPlayers.length);
+  const overall = Math.round(teamPlayers.reduce((sum, p) => sum + p.overall, 0)/teamPlayers.length);
+
+  container.innerHTML = `
+    <p>Offence Rating: ${offence}/100</p>
+    <p>Defence Rating: ${defence}/100</p>
+    <p>Overall Rating: ${overall}/100</p>
+  `;
+}
+
+// Dropdown change for other teams (read-only view)
+document.getElementById("otherTeamSelect").addEventListener("change", (e) => {
+  const selected = e.target.value;
+  const container = document.getElementById("selectedTeamLineup");
+  const teamPlayers = players.filter(p => p.team === selected);
+
+  let html = `<h3>${selected} Lineup (AI Controlled)</h3>
+    <table>
+      <tr><th>Position</th><th>Name</th><th>Age</th><th>Overall</th></tr>`;
+
+  teamPlayers.forEach(p => {
+    const injuredClass = p.injured ? "injured" : "";
+    html += `<tr class="${injuredClass}">
+      <td>${p.position}</td>
+      <td>${p.name}</td>
+      <td>${p.age}</td>
+      <td>${p.overall}</td>
+    </tr>`;
+  });
+
+  html += `</table>`;
+  container.innerHTML = html;
+  renderTeamRatings(); // still shows selected team ratings only
+}
+
+// Initialize lineup
+renderLineup();
