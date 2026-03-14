@@ -74,7 +74,65 @@ function renderSelectedTeam() {
     <tr>
       <th>Name</th><th>Position</th><th>Age</th><th>Overall</th><th>Salary</th><th>Contract</th>
     </tr>`;
+<section id="careerTabs">
 
+  <!-- Coaching Tab -->
+  <div id="coachingTab">
+    <h3>Coaching Staff</h3>
+    <div id="headCoach"></div>
+    <div id="assistantCoaches"></div>
+    <div id="scouts"></div>
+    <div id="medicalTeam"></div>
+    <div id="freeAgentCoaches"></div>
+  </div>
+
+  <!-- Drafting Tab -->
+  <div id="draftTab">
+    <h3>Draft Board</h3>
+    <div id="draftHints"></div>
+    <div id="draftTable"></div>
+  </div>
+
+  <!-- Free Agency Tab -->
+  <div id="freeAgencyTab">
+    <h3>Free Agency</h3>
+    <div id="freeAgencyHints"></div>
+    <div id="freeAgencyTable"></div>
+  </div>
+
+  <!-- Trade Tab -->
+  <div id="tradeTab">
+    <h3>Trade Machine</h3>
+    <div id="tradeYourTeam"></div>
+    <div id="tradeOtherTeams"></div>
+  </div>
+
+  <!-- Team Stats Tab -->
+  <div id="teamStatsTab">
+    <h3>Team Stats</h3>
+    <div id="teamStatsTable"></div>
+  </div>
+
+  <!-- Player Stats Tab -->
+  <div id="playerStatsTab">
+    <h3>Player Stats</h3>
+    <div id="playerStatsTable"></div>
+  </div>
+
+  <!-- Awards Tab -->
+  <div id="awardsTab">
+    <h3>Awards</h3>
+    <div id="awardsTable"></div>
+  </div>
+
+  <!-- Finals Tab -->
+  <div id="finalsTab">
+    <h3>Finals</h3>
+    <div id="finalsBracket"></div>
+    <div id="finalsStats"></div>
+  </div>
+
+</section>
   const teamPlayers = players.filter(p=>p.team === selectedTeam);
   teamPlayers.forEach(p=>{
     html += `<tr class="${p.injured?'injured':''}">
@@ -332,5 +390,6 @@ renderHome();
   <script src="players.js"></script>
   <script src="lineup.js"></script>
   <script src="tactics.js"></script>
+  <script src="careerTabs.js"></script>
 </body>
 </html>
