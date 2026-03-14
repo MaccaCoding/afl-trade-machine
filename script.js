@@ -207,4 +207,69 @@ document.addEventListener("DOMContentLoaded", () => {
   // Show Home by default
   showSection("homePage");
 
+  function renderHome() {
+  const container = document.getElementById("homeTeams");
+  container.innerHTML = "";
+
+  // Group players by team
+  const teams = {};
+  players.forEach(p => {
+    if (!teams[p.team]) teams[p.team] = [];
+    teams[p.team].push(p);
+  });
+
+  for (const teamName in teams) {
+    const teamBox = document.createElement("div");
+    teamBox.style.backgroundColor = "#333";
+    teamBox.style.padding = "15px";
+    teamBox.style.borderRadius = "8px";
+    teamBox.style.marginBottom = "15px";
+
+    // Team header
+    const teamHeader = document.createElement("h3");
+    teamHeader.textContent = `${teamName} - Next match: TBD - Ladder: TBD`;
+    teamHeader.style.marginBottom = "10px";
+    teamBox.appendChild(teamHeader);
+
+    // Players table
+    const table = document.createElement("table");
+    table.style.width = "100%";
+    table.style.borderCollapse = "collapse";
+
+    const headerRow = document.createElement("tr");
+    ["Player", "Pos", "Age", "Salary", "Overall", "Potential"].forEach(title => {
+      const th = document.createElement("th");
+      th.textContent = title;
+      th.style.borderBottom = "1px solid #555";
+      th.style.padding = "5px";
+      th.style.textAlign = "left";
+      table.appendChild(th);
+    });
+    table.appendChild(headerRow);
+
+    teams[teamName].forEach(p => {
+      const row = document.createElement("tr");
+      const overall = calculateOverall(p);
+      const cells = [
+        p.name,
+        p.position,
+        p.age,
+        `$${p.salary.toLocaleString()}`,
+        overall,
+        `${p.potential.min}-${p.potential.max}`
+      ];
+      cells.forEach(c => {
+        const td = document.createElement("td");
+        td.textContent = c;
+        td.style.padding = "5px";
+        td.style.borderBottom = "1px solid #555";
+        row.appendChild(td);
+      });
+      table.appendChild(row);
+    });
+
+    teamBox.appendChild(table);
+    container.appendChild(teamBox);
+  }
+}
 });
