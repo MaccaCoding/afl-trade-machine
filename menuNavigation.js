@@ -1,31 +1,34 @@
-// ================== Side Menu Navigation ==================
-
-// Grab all menu buttons and tabs
+// menuNavigation.js
 const menuButtons = document.querySelectorAll(".menuBtn");
-const tabs = document.querySelectorAll("#mainContent section");
+const sections = document.querySelectorAll("main section");
 
-// Function to hide all tabs
-function hideAllTabs() {
-  tabs.forEach(tab => {
-    tab.style.display = "none";
+// Function to show only the selected tab
+function showSection(tabId) {
+  sections.forEach(sec => {
+    if (sec.id === tabId) {
+      sec.style.display = "block";
+    } else {
+      sec.style.display = "none";
+    }
   });
+
+  // Optional: highlight active button
+  menuButtons.forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.tab === tabId);
+  });
+
+  // If Home tab is selected, render it
+  if (tabId === "homeTab") {
+    if (typeof renderHome === "function") renderHome();
+  }
 }
 
-// Function to show a specific tab
-function showTab(tabId){
-  hideAllTabs();
-  const tab = document.getElementById(tabId);
-  if(tab) tab.style.display = "block";
-}
+// Initialize: show Home tab by default
+showSection("homeTab");
 
-// Initialize: hide all except Home
-hideAllTabs();
-showTab("homeTab");
-
-// Add click listeners to menu buttons
-menuButtons.forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    const tabId = btn.dataset.tab;
-    showTab(tabId);
+// Add click listeners
+menuButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    showSection(btn.dataset.tab);
   });
 });
