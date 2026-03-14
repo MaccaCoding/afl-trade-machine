@@ -65,6 +65,35 @@ const fixtures = [
   // Add more rounds here...
 ];
 
+<!-- Side Menu -->
+<div id="sideMenu">
+  <button class="menuBtn" data-tab="homeTab">Home</button>
+  <button class="menuBtn" data-tab="teamLineupTab">Team Lineup</button>
+  <button class="menuBtn" data-tab="teamTacticsTab">Team Tactics</button>
+  <button class="menuBtn" data-tab="coachingTab">Coaching</button>
+  <button class="menuBtn" data-tab="draftTab">Drafting</button>
+  <button class="menuBtn" data-tab="freeAgencyTab">Free Agency</button>
+  <button class="menuBtn" data-tab="tradeTab">Trade</button>
+  <button class="menuBtn" data-tab="teamStatsTab">Team Stats</button>
+  <button class="menuBtn" data-tab="playerStatsTab">Player Stats</button>
+  <button class="menuBtn" data-tab="awardsTab">Awards</button>
+  <button class="menuBtn" data-tab="finalsTab">Finals</button>
+</div>
+
+<!-- Main Content -->
+<div id="mainContent">
+  <section id="homeTab">...</section>
+  <section id="teamLineupTab">...</section>
+  <section id="teamTacticsTab">...</section>
+  <section id="coachingTab">...</section>
+  <section id="draftTab">...</section>
+  <section id="freeAgencyTab">...</section>
+  <section id="tradeTab">...</section>
+  <section id="teamStatsTab">...</section>
+  <section id="playerStatsTab">...</section>
+  <section id="awardsTab">...</section>
+  <section id="finalsTab">...</section>
+</div>
 // ================ Render Selected Team Players ================
 function renderSelectedTeam() {
   const container = document.getElementById("homeSelectedTeam");
@@ -391,5 +420,6 @@ renderHome();
   <script src="lineup.js"></script>
   <script src="tactics.js"></script>
   <script src="careerTabs.js"></script>
+  <script src="menuNavigation.js"></script>
 </body>
 </html>
