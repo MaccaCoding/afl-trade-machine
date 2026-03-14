@@ -1,352 +1,198 @@
-document.addEventListener("DOMContentLoaded", () => {
+// script.js
 
-  // ----- Player Data -----
-  const players = [
-    { id: 1, name: "Nick Daicos", team: "Collingwood", position: "MID", age: 19, salary: 900000,
-      stats: { kick:95, handball:90, mark:88, tackle:92, speed:90, stamina:91, footyIQ:94, clutch:92, strength:88, discipline:89, rucking:50 },
-      potential: { min:90, max:98 }, progression:0.5, regression:0.3
-    },
-    { id: 2, name: "Patrick Cripps", team: "Carlton", position: "MID", age: 25, salary: 850000,
-      stats: { kick:92, handball:88, mark:85, tackle:90, speed:88, stamina:89, footyIQ:93, clutch:90, strength:87, discipline:88, rucking:55 },
-      potential: { min:90, max:95 }, progression:0.4, regression:0.4
-    },
-    { id: 3, name: "Zach Merrett", team: "Essendon", position: "MID", age: 26, salary:800000,
-      stats: { kick:90, handball:85, mark:82, tackle:88, speed:87, stamina:88, footyIQ:91, clutch:88, strength:86, discipline:87, rucking:50 },
-      potential: { min:88, max:93 }, progression:0.3, regression:0.5
-    },
-    { id: 4, name: "Jack Riewoldt", team: "Richmond", position: "FF", age:30, salary:780000,
-      stats: { kick:88, handball:80, mark:90, tackle:80, speed:82, stamina:85, footyIQ:89, clutch:90, strength:85, discipline:86, rucking:40 },
-      potential: { min:85, max:90 }, progression:0.2, regression:0.6
-    },
-    { id: 5, name: "Patrick Dangerfield", team: "Geelong", position: "MID", age:31, salary:920000,
-      stats: { kick:94, handball:91, mark:86, tackle:93, speed:90, stamina:92, footyIQ:95, clutch:92, strength:88, discipline:90, rucking:50 },
-      potential: { min:92, max:96 }, progression:0.2, regression:0.5
-    },
-    { id: 6, name: "Dayne Zorko", team: "Brisbane Lions", position: "MID", age:30, salary:810000,
-      stats: { kick:89, handball:85, mark:84, tackle:88, speed:87, stamina:88, footyIQ:90, clutch:89, strength:86, discipline:87, rucking:50 },
-      potential: { min:88, max:92 }, progression:0.3, regression:0.5
-    },
-    { id: 7, name: "Nic Naitanui", team: "West Coast Eagles", position: "RUC", age:28, salary:870000,
-      stats: { kick:92, handball:87, mark:90, tackle:85, speed:85, stamina:88, footyIQ:90, clutch:90, strength:93, discipline:85, rucking:98 },
-      potential: { min:90, max:95 }, progression:0.3, regression:0.5
-    },
-    { id: 8, name: "Lance Franklin", team: "Sydney Swans", position: "FF", age:33, salary:950000,
-      stats: { kick:95, handball:85, mark:92, tackle:80, speed:85, stamina:87, footyIQ:90, clutch:95, strength:88, discipline:86, rucking:40 },
-      potential: { min:93, max:97 }, progression:0.2, regression:0.6
-    },
-    { id: 9, name: "Tom Mitchell", team: "Hawthorn", position: "MID", age:28, salary:880000,
-      stats: { kick:92, handball:88, mark:85, tackle:90, speed:88, stamina:89, footyIQ:91, clutch:90, strength:87, discipline:88, rucking:50 },
-      potential: { min:90, max:94 }, progression:0.3, regression:0.4
-    },
-    { id:10, name: "Taylor Walker", team: "Adelaide Crows", position: "FF", age:31, salary:860000,
-      stats: { kick:90, handball:82, mark:88, tackle:82, speed:83, stamina:85, footyIQ:88, clutch:89, strength:86, discipline:85, rucking:40 },
-      potential: { min:87, max:92 }, progression:0.2, regression:0.5
-    },
-    { id:11, name: "Jack Steele", team: "St Kilda", position: "MID", age:24, salary:800000,
-      stats: { kick:89, handball:84, mark:85, tackle:88, speed:87, stamina:88, footyIQ:90, clutch:88, strength:86, discipline:87, rucking:50 },
-      potential: { min:88, max:93 }, progression:0.4, regression:0.3
-    },
-    { id:12, name: "Travis Boak", team: "Port Adelaide", position: "MID", age:32, salary:830000,
-      stats: { kick:90, handball:85, mark:84, tackle:88, speed:86, stamina:87, footyIQ:89, clutch:88, strength:87, discipline:86, rucking:50 },
-      potential: { min:88, max:92 }, progression:0.2, regression:0.5
-    },
-    { id:13, name: "Christian Petracca", team: "Melbourne", position: "MID", age:25, salary:910000,
-      stats: { kick:93, handball:90, mark:87, tackle:92, speed:90, stamina:91, footyIQ:94, clutch:92, strength:88, discipline:89, rucking:50 },
-      potential: { min:91, max:96 }, progression:0.4, regression:0.3
-    },
-    { id:14, name: "Matt Rowell", team: "Gold Coast Suns", position: "MID", age:20, salary:770000,
-      stats: { kick:88, handball:85, mark:83, tackle:87, speed:87, stamina:88, footyIQ:90, clutch:88, strength:85, discipline:87, rucking:50 },
-      potential: { min:87, max:94 }, progression:0.5, regression:0.2
-    },
-    { id:15, name: "Marcus Bontempelli", team: "Western Bulldogs", position: "MID", age:25, salary:920000,
-      stats: { kick:94, handball:91, mark:86, tackle:92, speed:90, stamina:91, footyIQ:94, clutch:92, strength:88, discipline:90, rucking:50 },
-      potential: { min:92, max:97 }, progression:0.4, regression:0.3
-    },
-    { id:16, name: "Nat Fyfe", team: "Fremantle", position: "MID", age:28, salary:940000,
-      stats: { kick:95, handball:92, mark:87, tackle:93, speed:90, stamina:91, footyIQ:95, clutch:93, strength:88, discipline:89, rucking:50 },
-      potential: { min:93, max:97 }, progression:0.3, regression:0.4
-    },
-    { id:17, name: "Ben Cunnington", team: "North Melbourne", position: "MID", age:29, salary:830000,
-      stats: { kick:90, handball:86, mark:85, tackle:88, speed:87, stamina:88, footyIQ:90, clutch:88, strength:86, discipline:87, rucking:50 },
-      potential: { min:88, max:92 }, progression:0.3, regression:0.4
-    },
-    { id:18, name: "Stephen Coniglio", team: "GWS Giants", position: "MID", age:26, salary:890000,
-      stats: { kick:92, handball:88, mark:85, tackle:90, speed:88, stamina:89, footyIQ:92, clutch:90, strength:87, discipline:88, rucking:50 },
-      potential: { min:90, max:95 }, progression:0.3, regression:0.4
-    }
-  ];
+// ================== Placeholder Data ==================
 
-  // ----- Helper Functions -----
+// Sample players (1 per AFL team for now)
+const players = [
+  { team: "Collingwood", name: "Nick Daicos", position: "MID", age: 19, salary: 900000, potential: {min:92,max:99}, stats:{kick:90,handball:85,mark:88,tackle:82,speed:90,stamina:88,footyIQ:94,clutch:85,strength:80,discipline:90,rucking:60} },
+  { team: "Carlton", name: "Patrick Cripps", position: "MID", age: 27, salary: 1000000, potential: {min:95,max:99}, stats:{kick:92,handball:88,mark:85,tackle:90,speed:86,stamina:90,footyIQ:92,clutch:88,strength:87,discipline:89,rucking:65} },
+  { team: "Essendon", name: "Zach Merrett", position: "MID", age: 26, salary: 850000, potential: {min:92,max:98}, stats:{kick:88,handball:86,mark:83,tackle:85,speed:87,stamina:88,footyIQ:90,clutch:87,strength:85,discipline:88,rucking:60} },
+  { team: "Richmond", name: "Jack Riewoldt", position: "FF", age: 31, salary: 800000, potential: {min:88,max:95}, stats:{kick:85,handball:80,mark:92,tackle:78,speed:80,stamina:82,footyIQ:88,clutch:90,strength:86,discipline:85,rucking:55} },
+  // Add remaining AFL teams
+];
 
-  // Overall
-  function calculateOverall(player) {
-    const stats = Object.values(player.stats);
-    const avg = stats.reduce((a,b)=>a+b,0)/stats.length;
-    return Math.round((stats.length-2)*avg);
+// Ladder placeholder
+const ladderData = [
+  { pos:1, team:"Collingwood", points:0, percentage:100 },
+  { pos:2, team:"Carlton", points:0, percentage:100 },
+  { pos:3, team:"Essendon", points:0, percentage:100 },
+  { pos:4, team:"Richmond", points:0, percentage:100 },
+  // Continue all 18 teams
+];
+
+// Fixtures with byes and highlighting selected team
+const fixtures = [
+  // Round 1 (5 games, other teams bye)
+  [
+    {home:"Collingwood", away:"Carlton", score:null},
+    {home:"Essendon", away:"Richmond", score:null},
+    {home:"Geelong", away:"Sydney", score:null},
+    {home:"Melbourne", away:"Brisbane", score:null},
+    {home:"West Coast", away:"Fremantle", score:null}
+  ],
+  // Round 2 (7 games)
+  [
+    {home:"Collingwood", away:"Essendon", score:null},
+    {home:"Carlton", away:"Richmond", score:null},
+    {home:"Geelong", away:"Brisbane", score:null},
+    {home:"Sydney", away:"Melbourne", score:null},
+    {home:"West Coast", away:"Port Adelaide", score:null},
+    {home:"Fremantle", away:"St Kilda", score:null},
+    {home:"Adelaide", away:"GWS", score:null}
+  ],
+  // Continue rounds up to 24 with your bye rules...
+];
+
+// Selected team for control
+let selectedTeam = "Collingwood";
+
+// ================== Helper Functions ==================
+function showSection(id){
+  document.querySelectorAll("main section").forEach(s=>s.style.display="none");
+  document.getElementById(id).style.display="block";
+
+  switch(id){
+    case "home": renderHome(); break;
+    case "fixtures": renderFixtures(); break;
+    case "lineup": renderLineup(); break;
+    case "tactics": renderTactics(); break;
+    case "coaching": renderCoaching(); break;
+    case "draft": renderDraft(); break;
+    case "freeAgency": renderFreeAgency(); break;
+    case "trade": renderTrade(); break;
+    case "teamStats": renderTeamStats(); break;
+    case "playerStats": renderPlayerStats(); break;
+    case "awards": renderAwards(); break;
+    case "finals": renderFinals(); break;
   }
-
-  // Trade Value
-  function calculateTradeValue(player) {
-    const overall = calculateOverall(player);
-    return Math.round(5000 * overall * (45-player.age)/(0.001*player.salary));
-  }
-
-  // ----- Render Functions -----
-
-  function renderHome() {
-    const container = document.getElementById("homeTeams");
-    container.innerHTML = "";
-    players.forEach(p=>{
-      const div = document.createElement("div");
-      div.textContent = `${p.team} - ${p.name} (${p.position}) - $${p.salary.toLocaleString()} - Overall: ${calculateOverall(p)} - Potential: ${p.potential.min}-${p.potential.max}`;
-      container.appendChild(div);
-    });
-  }
-
-  function renderLineup() {
-    const container = document.getElementById("lineupContent");
-    container.innerHTML = "";
-    players.forEach(p=>{
-      const div = document.createElement("div");
-      div.textContent = `${p.name} (${p.position}) - $${p.salary.toLocaleString()} - Overall: ${calculateOverall(p)} - Potential: ${p.potential.min}-${p.potential.max}`;
-      container.appendChild(div);
-    });
-  }
-
-  function renderPlayerStats() {
-    const container = document.getElementById("playerStatsContent");
-    container.innerHTML = "";
-    players.forEach(p=>{
-      const div = document.createElement("div");
-      div.textContent = `${p.name} (${p.team}) - Overall: ${calculateOverall(p)}, Trade Value: ${calculateTradeValue(p)}, Stats: ${JSON.stringify(p.stats)}`;
-      container.appendChild(div);
-    });
-  }
-
-  function renderTradePage() {
-    const container = document.getElementById("tradeContent");
-    container.innerHTML = "<p>Trade machine coming soon...</p>";
-  }
-
-  function renderDraftPage() {
-    const container = document.getElementById("draftContent");
-    container.innerHTML = "<p>Draft prospects will appear here...</p>";
-  }
-
-  function renderCoachingPage() {
-    const container = document.getElementById("coachingContent");
-    container.innerHTML = "<p>Coaches, assistants, doctors, list managers, and free agents...</p>";
-  }
-
-  function renderFreeAgencyPage() {
-    const container = document.getElementById("freeAgencyContent");
-    container.innerHTML = "<p>Free agency signings and resigns...</p>";
-  }
-
-  function renderTacticsPage() {
-    const container = document.getElementById("tacticsContent");
-    container.innerHTML = "<p>Set team tactics: speed, style, ball movement, spare, captain, tagger...</p>";
-  }
-
-  function renderFixturePage() {
-    const container = document.getElementById("fixtureContent");
-    container.innerHTML = "<p>Fixtures and results appear here.</p>";
-  }
-
-  function renderTeamStatsPage() {
-    const container = document.getElementById("teamStatsContent");
-    container.innerHTML = "<p>Team stats ladder, points for/against, sorting...</p>";
-  }
-
-  function renderAwardsPage() {
-    const container = document.getElementById("awardsContent");
-    container.innerHTML = "<p>Brownlow and other awards...</p>";
-  }
-
-  function renderFinalsPage() {
-    const container = document.getElementById("finalsContent");
-    container.innerHTML = "<p>Finals brackets, fixtures, and results...</p>";
-  }
-
-  // ----- Sidebar Navigation -----
-  const sections = document.querySelectorAll("main section");
-  const buttons = document.querySelectorAll("#sidebar button");
-
-  function hideAllSections() {
-    sections.forEach(s => s.style.display="none");
-  }
-
-  function showSection(id) {
-    hideAllSections();
-    const section = document.getElementById(id);
-    if(section) section.style.display="block";
-
-    // Render dynamic content for the section
-    switch(id){
-      case "homePage": renderHome(); break;
-      case "teamLineupPage": renderLineup(); break;
-      case "playerStatsPage": renderPlayerStats(); break;
-      case "tradePage": renderTradePage(); break;
-      case "draftPage": renderDraftPage(); break;
-      case "coachingPage": renderCoachingPage(); break;
-      case "freeAgencyPage": renderFreeAgencyPage(); break;
-      case "teamTacticsPage": renderTacticsPage(); break;
-      case "fixturePage": renderFixturePage(); break;
-      case "teamStatsPage": renderTeamStatsPage(); break;
-      case "awardsPage": renderAwardsPage(); break;
-      case "finalsPage": renderFinalsPage(); break;
-    }
-  }
-
-  buttons.forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      showSection(btn.getAttribute("data-page"));
-    });
-  });
-
-  // Show Home by default
-  showSection("homePage");
-function renderHome() {
-  const container = document.getElementById("homeTeams");
-  container.innerHTML = "";
-
-  const controlledTeamName = "Collingwood"; // Your team
-  const nextOpponentName = "Carlton";       // Next match
-
-  // --- Get controlled team player(s) ---
-  const controlledPlayers = players.filter(p => p.team === controlledTeamName);
-  const opponentPlayers = players.filter(p => p.team === nextOpponentName);
-
-  // --- Controlled Team Box ---
-  const teamBox = document.createElement("div");
-  teamBox.style.backgroundColor = "#333";
-  teamBox.style.padding = "15px";
-  teamBox.style.borderRadius = "8px";
-  teamBox.style.marginBottom = "20px";
-
-  const teamHeader = document.createElement("h2");
-  teamHeader.textContent = `${controlledTeamName} (Your Team)`;
-  teamHeader.style.marginBottom = "10px";
-  teamBox.appendChild(teamHeader);
-
-  const teamTable = document.createElement("table");
-  teamTable.style.width = "100%";
-  teamTable.style.borderCollapse = "collapse";
-
-  const headerRow = document.createElement("tr");
-  ["Player", "Pos", "Age", "Salary", "Overall", "Potential"].forEach(title => {
-    const th = document.createElement("th");
-    th.textContent = title;
-    th.style.borderBottom = "1px solid #555";
-    th.style.padding = "5px";
-    th.style.textAlign = "left";
-    headerRow.appendChild(th);
-  });
-  teamTable.appendChild(headerRow);
-
-  controlledPlayers.forEach(p => {
-    const row = document.createElement("tr");
-    const overall = calculateOverall(p);
-    const cells = [
-      p.name,
-      p.position,
-      p.age,
-      `$${p.salary.toLocaleString()}`,
-      overall,
-      `${p.potential.min}-${p.potential.max}`
-    ];
-    cells.forEach(c => {
-      const td = document.createElement("td");
-      td.textContent = c;
-      td.style.padding = "5px";
-      td.style.borderBottom = "1px solid #555";
-      row.appendChild(td);
-    });
-    teamTable.appendChild(row);
-  });
-
-  teamBox.appendChild(teamTable);
-  container.appendChild(teamBox);
-
-  // --- Next Opponent Box ---
-  const opponentBox = document.createElement("div");
-  opponentBox.style.backgroundColor = "#444";
-  opponentBox.style.padding = "15px";
-  opponentBox.style.borderRadius = "8px";
-  opponentBox.style.marginBottom = "20px";
-
-  const opponentHeader = document.createElement("h3");
-  opponentHeader.textContent = `Next Match: ${controlledTeamName} vs ${nextOpponentName}`;
-  opponentHeader.style.marginBottom = "10px";
-  opponentBox.appendChild(opponentHeader);
-
-  const opponentRecord = document.createElement("p");
-  opponentRecord.textContent = `${controlledTeamName} Record: 0-0 | ${nextOpponentName} Record: 0-0`; // Placeholder
-  opponentBox.appendChild(opponentRecord);
-
-  container.appendChild(opponentBox);
-
-  // --- Ladder Box ---
-  const ladderBox = document.createElement("div");
-  ladderBox.style.backgroundColor = "#333";
-  ladderBox.style.padding = "15px";
-  ladderBox.style.borderRadius = "8px";
-
-  const ladderHeader = document.createElement("h3");
-  ladderHeader.textContent = "Ladder";
-  ladderHeader.style.marginBottom = "10px";
-  ladderBox.appendChild(ladderHeader);
-
-  const ladderTable = document.createElement("table");
-  ladderTable.style.width = "100%";
-  ladderTable.style.borderCollapse = "collapse";
-
-  const ladderHeaderRow = document.createElement("tr");
-  ["Pos", "Team", "Points"].forEach(title => {
-    const th = document.createElement("th");
-    th.textContent = title;
-    th.style.borderBottom = "1px solid #555";
-    th.style.padding = "5px";
-    th.style.textAlign = "left";
-    ladderHeaderRow.appendChild(th);
-  });
-  ladderTable.appendChild(ladderHeaderRow);
-
-  // Placeholder ladder data
-  const ladderData = [
-    { pos: 1, team: "Collingwood", points: 0 },
-    { pos: 2, team: "Carlton", points: 0 },
-    { pos: 3, team: "Essendon", points: 0 },
-    { pos: 4, team: "Richmond", points: 0 },
-    { pos: 5, team: "Geelong", points: 0 },
-    { pos: 6, team: "Brisbane Lions", points: 0 },
-    { pos: 7, team: "West Coast Eagles", points: 0 },
-    { pos: 8, team: "Sydney Swans", points: 0 },
-    { pos: 9, team: "Hawthorn", points: 0 },
-    { pos:10, team: "Adelaide Crows", points: 0 },
-    { pos:11, team: "St Kilda", points: 0 },
-    { pos:12, team: "Port Adelaide", points: 0 },
-    { pos:13, team: "Melbourne", points: 0 },
-    { pos:14, team: "Gold Coast Suns", points: 0 },
-    { pos:15, team: "Western Bulldogs", points: 0 },
-    { pos:16, team: "Fremantle", points: 0 },
-    { pos:17, team: "North Melbourne", points: 0 },
-    { pos:18, team: "GWS Giants", points: 0 }
-  ];
-
-  ladderData.forEach(team => {
-    const row = document.createElement("tr");
-    [team.pos, team.team, team.points].forEach(c => {
-      const td = document.createElement("td");
-      td.textContent = c;
-      td.style.padding = "5px";
-      td.style.borderBottom = "1px solid #555";
-      row.appendChild(td);
-    });
-    ladderTable.appendChild(row);
-  });
-
-  ladderBox.appendChild(ladderTable);
-  container.appendChild(ladderBox);
 }
+
+function calculateOverall(player){
+  const stats = player.stats;
+  const sum = Object.values(stats).reduce((a,b)=>a+b,0);
+  const categories = Object.keys(stats).length;
+  return Math.round((categories-2)*(sum/categories));
+}
+
+// ================== Home Section ==================
+function renderHome(){
+  // Selected Team Players
+  const teamPlayers = players.filter(p=>p.team===selectedTeam);
+  let html=`<h2>${selectedTeam} (Your Team)</h2><table><tr>
+    <th>Player</th><th>Pos</th><th>Age</th><th>Salary</th><th>Overall</th><th>Potential</th></tr>`;
+  teamPlayers.forEach(p=>{
+    html+=`<tr>
+      <td>${p.name}</td><td>${p.position}</td><td>${p.age}</td><td>$${p.salary.toLocaleString()}</td>
+      <td>${calculateOverall(p)}</td><td>${p.potential.min}-${p.potential.max}</td>
+    </tr>`;
+  });
+  html+="</table>";
+  document.getElementById("selectedTeamBox").innerHTML=html;
+
+  // Next fixture
+  const nextOpponent = "Carlton"; // placeholder
+  document.getElementById("nextFixtureBox").innerHTML=`<h3>Next Match: ${selectedTeam} vs ${nextOpponent}</h3>
+    <p>${selectedTeam} Record: 0-0 | ${nextOpponent} Record: 0-0</p>`;
+
+  // Ladder
+  let ladderHtml=`<h3>Ladder</h3><table><tr><th>Pos</th><th>Team</th><th>Points</th><th>%</th></tr>`;
+  ladderData.sort((a,b)=>a.pos-b.pos).forEach(t=>{
+    ladderHtml+=`<tr><td>${t.pos}</td><td>${t.team}</td><td>${t.points}</td><td>${t.percentage}</td></tr>`;
+  });
+  ladderHtml+="</table>";
+  document.getElementById("ladderBox").innerHTML=ladderHtml;
+}
+
+// ================== Fixtures Section ==================
+let currentRound=1;
+function renderFixtures(){
+  const content=document.getElementById("fixturesContent");
+  const roundDisplay=document.getElementById("roundDisplay");
+  roundDisplay.textContent=`Round ${currentRound}`;
+  const roundGames = fixtures[currentRound-1] || [];
+  let html="<table><tr><th>Home</th><th>Away</th><th>Score</th></tr>";
+  roundGames.forEach(g=>{
+    const cls=(g.home===selectedTeam||g.away===selectedTeam)?"class='highlight'":"";
+    html+=`<tr ${cls}><td>${g.home}</td><td>${g.away}</td><td>${g.score||"-"}</td></tr>`;
+  });
+  html+="</table>"; content.innerHTML=html;
+}
+document.getElementById("prevRound").addEventListener("click",()=>{
+  if(currentRound>1){currentRound--; renderFixtures();}
 });
+document.getElementById("nextRound").addEventListener("click",()=>{
+  if(currentRound<fixtures.length){currentRound++; renderFixtures();}
+});
+
+// ================== Lineup Section ==================
+function renderLineup(){
+  const teamPlayers=players.filter(p=>p.team===selectedTeam);
+  let html="<h3>Selected Team Lineup</h3><table><tr><th>Position</th><th>Player</th></tr>";
+  teamPlayers.forEach(p=>{
+    html+=`<tr class="${p.injured?'injured':''}"><td>${p.position}</td><td>${p.name}</td></tr>`;
+  });
+  html+="</table>";
+  document.getElementById("selectedTeamLineup").innerHTML=html;
+
+  // Dropdown for other teams
+  const select=document.getElementById("otherTeamSelect"); select.innerHTML="";
+  [...new Set(players.map(p=>p.team))].forEach(t=>{
+    let o=document.createElement("option"); o.value=t;o.textContent=t; select.appendChild(o);
+  });
+  document.getElementById("teamRatings").innerHTML="Offence: 80 | Defence: 85 | Overall: 82";
+}
+
+// ================== Tactics Section ==================
+function renderTactics(){
+  document.getElementById("tacticsPage1").innerHTML="<h3>Game Plan</h3><p>Style & Width selections here</p>";
+  document.getElementById("tacticsPage2").innerHTML="<h3>Leadership & Roles</h3><p>Captain, Kickouts, Backup Rucks, Tagger, Spare</p>";
+}
+
+// ================== Coaching Section ==================
+function renderCoaching(){
+  document.getElementById("headCoachBox").innerHTML="<p>Head Coach Placeholder</p>";
+  document.getElementById("assistantCoachesBox").innerHTML="<p>4 Assistant Coaches Placeholder</p>";
+  document.getElementById("scoutsBox").innerHTML="<p>5 Scouts Placeholder</p>";
+  document.getElementById("medicalBox").innerHTML="<p>Medical Team Placeholder</p>";
+  document.getElementById("freeAgentCoachesBox").innerHTML="<p>Free Agent Coaches Placeholder</p>";
+}
+
+// ================== Draft Section ==================
+function renderDraft(){
+  document.getElementById("draftBoard").innerHTML="<p>Draft Board Placeholder</p>";
+}
+
+// ================== Free Agency ==================
+function renderFreeAgency(){
+  document.getElementById("freeAgencyContent").innerHTML="<p>Free Agency Placeholder</p>";
+}
+
+// ================== Trade Section ==================
+function renderTrade(){
+  document.getElementById("tradeYourTeam").innerHTML="<p>Your Team Trade Box Placeholder</p>";
+  document.getElementById("tradeOtherTeams").innerHTML="<p>Other Teams Trade Box Placeholder</p>";
+}
+
+// ================== Team Stats ==================
+function renderTeamStats(){
+  document.getElementById("teamStatsTable").innerHTML="<p>Team Stats Placeholder</p>";
+}
+
+// ================== Player Stats ==================
+function renderPlayerStats(){
+  document.getElementById("playerStatsContent").innerHTML="<p>Player Stats Placeholder</p>";
+}
+
+// ================== Awards ==================
+function renderAwards(){
+  document.getElementById("awardsContent").innerHTML="<p>Awards Placeholder</p>";
+}
+
+// ================== Finals ==================
+function renderFinals(){
+  document.getElementById("finalsBracket").innerHTML="<p>Finals Bracket Placeholder</p>";
+  document.getElementById("finalsStats").innerHTML="<p>Finals Stats Placeholder</p>";
+}
+
+// ================== Initialize ==================
+showSection("home");
