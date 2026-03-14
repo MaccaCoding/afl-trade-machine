@@ -1,121 +1,188 @@
-/* --- General Reset --- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
+/* ================== General Layout ================== */
 body {
-  display: flex;
-  min-height: 100vh;
-  background-color: #1c1c1c;
-  color: #ffffff;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1b1b1b;
+  color: #fff;
 }
 
-/* --- Sidebar --- */
-#sidebar {
-  width: 250px;
-  background-color: #111;
+nav#sidebar {
+  width: 220px;
+  background-color: #222;
+  height: 100vh;
+  position: fixed;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
+  overflow-y: auto;
 }
 
-#sidebar h2 {
-  color: white;
+nav#sidebar h2 {
+  color: #fff;
   margin-bottom: 20px;
   text-align: center;
+  font-size: 20px;
 }
 
-#sidebar button {
-  background-color: #222;
-  color: white;
+nav#sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
   border: none;
-  padding: 10px 15px;
-  margin: 5px 0;
   cursor: pointer;
-  text-align: left;
   font-size: 14px;
-  border-radius: 5px;
   transition: 0.2s;
 }
 
-#sidebar button:hover {
-  background-color: #444;
+nav#sidebar button:hover {
+  background-color: #555;
 }
 
-/* --- Main Content --- */
 main {
-  flex: 1;
+  margin-left: 240px;
   padding: 20px;
-  overflow-y: auto;
 }
 
-/* --- Sections --- */
-main section {
+/* ================== Sections ================== */
+section {
   display: none;
 }
 
-main section h1 {
-  margin-bottom: 15px;
-}
-
-/* --- Player/Team Boxes --- */
-#homeTeams div,
-#lineupContent div,
-#playerStatsContent div {
-  background-color: #222;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 10px;
+/* ================== Tables ================== */
+table {
   width: 100%;
-  word-wrap: break-word;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-/* --- Stats inside Player Box --- */
-#playerStatsContent div {
-  font-size: 13px;
-  color: #ddd;
+table, th, td {
+  border: 1px solid #555;
 }
 
-/* --- Trade/Draft/Other Placeholder Boxes --- */
-#tradeContent, #draftContent, #coachingContent,
-#freeAgencyContent, #tacticsContent, #fixtureContent,
-#teamStatsContent, #awardsContent, #finalsContent {
-  background-color: #222;
-  border-radius: 8px;
-  padding: 15px;
-  margin-top: 10px;
+th, td {
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 14px;
 }
 
-/* --- Scrollable Content if long --- */
-main {
-  max-height: 100vh;
-  overflow-y: auto;
+th {
+  background-color: #333;
+  color: #fff;
 }
 
-/* --- Highlight injured/suspended players (example) --- */
-.injured, .suspended {
+tr.highlight {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+}
+
+tr.injured td {
   color: red;
   font-weight: bold;
 }
 
-/* --- Responsive --- */
-@media (max-width: 768px) {
-  body {
-    flex-direction: column;
+/* ================== Fixtures Controls ================== */
+#roundControls {
+  margin-bottom: 10px;
+}
+
+#roundControls button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#roundDisplay {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* ================== Lineup Layout ================== */
+#lineupWrapper {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+#selectedTeamLineup {
+  flex: 3;
+}
+
+#otherTeamSelector {
+  flex: 1;
+}
+
+#otherTeamSelector select {
+  width: 100%;
+  padding: 5px;
+  font-size: 14px;
+}
+
+/* ================== Tactics ================== */
+#tacticsPage1, #tacticsPage2 {
+  margin-bottom: 20px;
+  background-color: #222;
+  padding: 10px;
+  border: 1px solid #555;
+}
+
+.tactic-option {
+  margin-bottom: 10px;
+}
+
+/* ================== Coaching Staff ================== */
+#coaching div {
+  margin-bottom: 10px;
+  padding: 8px;
+  background-color: #222;
+  border: 1px solid #555;
+}
+
+/* ================== Draft / Free Agency / Trade ================== */
+#draftBoard, #freeAgencyContent, #tradeYourTeam, #tradeOtherTeams {
+  background-color: #222;
+  padding: 10px;
+  border: 1px solid #555;
+  margin-bottom: 20px;
+}
+
+/* ================== Stats ================== */
+#teamStatsTable, #playerStatsContent {
+  background-color: #222;
+  padding: 10px;
+  border: 1px solid #555;
+}
+
+/* ================== Awards / Finals ================== */
+#awardsContent, #finalsBracket, #finalsStats {
+  background-color: #222;
+  padding: 10px;
+  border: 1px solid #555;
+}
+
+/* ================== Ratings Bars ================== */
+.rating-bar {
+  height: 15px;
+  background-color: #555;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.rating-fill {
+  height: 100%;
+  background-color: #0f0;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+/* ================== Responsive ================== */
+@media(max-width: 900px){
+  nav#sidebar{
+    width: 180px;
   }
-  #sidebar {
-    width: 100%;
-    flex-direction: row;
-    overflow-x: auto;
-  }
-  #sidebar button {
-    flex: 1;
-    margin: 0 5px;
-  }
-  main {
-    padding: 10px;
+  main{
+    margin-left: 200px;
   }
 }
