@@ -2,15 +2,6 @@
 
 // ================== Placeholder Data ==================
 
-// Sample players (1 per AFL team for now)
-const players = [
-  { team: "Collingwood", name: "Nick Daicos", position: "MID", age: 19, salary: 900000, potential: {min:92,max:99}, stats:{kick:90,handball:85,mark:88,tackle:82,speed:90,stamina:88,footyIQ:94,clutch:85,strength:80,discipline:90,rucking:60} },
-  { team: "Carlton", name: "Patrick Cripps", position: "MID", age: 27, salary: 1000000, potential: {min:95,max:99}, stats:{kick:92,handball:88,mark:85,tackle:90,speed:86,stamina:90,footyIQ:92,clutch:88,strength:87,discipline:89,rucking:65} },
-  { team: "Essendon", name: "Zach Merrett", position: "MID", age: 26, salary: 850000, potential: {min:92,max:98}, stats:{kick:88,handball:86,mark:83,tackle:85,speed:87,stamina:88,footyIQ:90,clutch:87,strength:85,discipline:88,rucking:60} },
-  { team: "Richmond", name: "Jack Riewoldt", position: "FF", age: 31, salary: 800000, potential: {min:88,max:95}, stats:{kick:85,handball:80,mark:92,tackle:78,speed:80,stamina:82,footyIQ:88,clutch:90,strength:86,discipline:85,rucking:55} },
-  // Add remaining AFL teams
-];
-
 // Ladder placeholder
 const ladderData = [
   { pos:1, team:"Collingwood", points:0, percentage:100 },
