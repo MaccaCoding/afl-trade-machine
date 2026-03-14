@@ -142,7 +142,16 @@ function renderHome() {
   renderNextFixture();
   renderLadder();
 }
+<section id="teamLineupTab">
+  <!-- Selected Team Lineup -->
+  <div id="lineupSelectedTeam"></div>
 
+  <!-- Dropdown to view other teams -->
+  <div>
+    <label for="teamSelect">View Team:</label>
+    <select id="teamSelect"></select>
+  </div>
+</section>
 // Call when Home tab is active
 renderHome();
   
@@ -243,5 +252,6 @@ renderHome();
 <script src="script.js"></script>
   <script src="home.js"></script>
   <script src="players.js"></script>
+  <script src="lineup.js"></script>
 </body>
 </html>
