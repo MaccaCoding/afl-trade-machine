@@ -1,149 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AFL Career Mode</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>AFL Career Mode</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* === CSS Base === */
+body {
+  margin: 0; font-family: Arial, sans-serif; background: #1b1b1b; color: #fff;
+}
+nav#sidebar {
+  width: 220px; background: #222; height: 100vh; position: fixed; padding: 20px; overflow-y: auto;
+}
+nav#sidebar h2 { color: #fff; margin-bottom: 20px; text-align: center;}
+nav#sidebar button { width: 100%; margin-bottom: 10px; padding: 8px; background: #333; color: #fff; border: none; cursor: pointer; }
+nav#sidebar button:hover { background: #555; }
+main { margin-left: 240px; padding: 20px; }
+section { display: none; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 20px;}
+table, th, td { border: 1px solid #555; }
+th, td { padding: 5px; text-align: left; }
+.highlight { background: yellow; color: black; }
+.injured { color: red; }
+#lineupWrapper { display: flex; gap: 20px; }
+</style>
 </head>
 <body>
-  <!-- Sidebar Menu -->
-  <nav id="sidebar">
-    <h2>Career Mode</h2>
-    <button onclick="showSection('home')">Home</button>
-    <button onclick="showSection('fixtures')">Fixtures & Results</button>
-    <button onclick="showSection('lineup')">Team Lineup</button>
-    <button onclick="showSection('tactics')">Team Tactics</button>
-    <button onclick="showSection('coaching')">Coaching</button>
-    <button onclick="showSection('draft')">Drafting</button>
-    <button onclick="showSection('freeAgency')">Free Agency</button>
-    <button onclick="showSection('trade')">Trade</button>
-    <button onclick="showSection('teamStats')">Team Stats</button>
-    <button onclick="showSection('playerStats')">Player Stats</button>
-    <button onclick="showSection('awards')">Awards</button>
-    <button onclick="showSection('finals')">Finals</button>
-  </nav>
 
-  <!-- Main Content Area -->
-  <main>
-    <!-- Home Tab -->
-    <section id="home">
-      <div id="selectedTeamBox"></div>
-      <div id="nextFixtureBox"></div>
-      <div id="ladderBox"></div>
-    </section>
+<!-- Sidebar Menu -->
+<nav id="sidebar">
+  <h2>Career Mode</h2>
+  <button onclick="showSection('home')">Home</button>
+  <button onclick="showSection('fixtures')">Fixtures & Results</button>
+  <button onclick="showSection('lineup')">Team Lineup</button>
+  <button onclick="showSection('tactics')">Team Tactics</button>
+  <button onclick="showSection('coaching')">Coaching</button>
+  <button onclick="showSection('draft')">Drafting</button>
+  <button onclick="showSection('freeAgency')">Free Agency</button>
+  <button onclick="showSection('trade')">Trade</button>
+  <button onclick="showSection('teamStats')">Team Stats</button>
+  <button onclick="showSection('playerStats')">Player Stats</button>
+  <button onclick="showSection('awards')">Awards</button>
+  <button onclick="showSection('finals')">Finals</button>
+</nav>
 
-    <!-- Fixtures & Results -->
-    <section id="fixtures">
-      <h1>Fixtures & Results</h1>
-      <div id="roundControls">
-        <button id="prevRound">&lt; Previous Round</button>
-        <span id="roundDisplay">Round 1</span>
-        <button id="nextRound">Next Round &gt;</button>
-      </div>
-      <div id="fixturesContent"></div>
-    </section>
+<main>
+<!-- Home -->
+<section id="home">
+  <div id="selectedTeamBox"></div>
+  <div id="nextFixtureBox"></div>
+  <div id="ladderBox"></div>
+</section>
 
-    <!-- Team Lineup -->
-    <section id="lineup">
-      <h1>Team Lineup</h1>
-      <div id="lineupWrapper">
-        <div id="selectedTeamLineup"></div>
-        <div id="otherTeamSelector">
-          <label for="otherTeamSelect">View Other Team:</label>
-          <select id="otherTeamSelect"></select>
-        </div>
-      </div>
-      <div id="teamRatings"></div>
-    </section>
+<!-- Fixtures & Results -->
+<section id="fixtures">
+  <h1>Fixtures & Results</h1>
+  <div id="roundControls">
+    <button id="prevRound">&lt; Previous Round</button>
+    <span id="roundDisplay">Round 1</span>
+    <button id="nextRound">Next Round &gt;</button>
+  </div>
+  <div id="fixturesContent"></div>
+</section>
 
-    <!-- Team Tactics -->
-    <section id="tactics">
-      <h1>Team Tactics</h1>
-      <div id="tacticsPage1"></div>
-      <div id="tacticsPage2"></div>
-    </section>
+<!-- Team Lineup -->
+<section id="lineup">
+  <h1>Team Lineup</h1>
+  <div id="lineupWrapper">
+    <div id="selectedTeamLineup"></div>
+    <div id="otherTeamSelector">
+      <label for="otherTeamSelect">View Other Team:</label>
+      <select id="otherTeamSelect"></select>
+    </div>
+  </div>
+  <div id="teamRatings"></div>
+</section>
 
-    <!-- Coaching -->
-    <section id="coaching">
-      <h1>Coaching Staff</h1>
-      <div id="headCoachBox"></div>
-      <div id="assistantCoachesBox"></div>
-      <div id="scoutsBox"></div>
-      <div id="medicalBox"></div>
-      <div id="freeAgentCoachesBox"></div>
-    </section>
+<!-- Team Tactics -->
+<section id="tactics">
+  <h1>Team Tactics</h1>
+  <div id="tacticsPage1"></div>
+  <div id="tacticsPage2"></div>
+</section>
 
-    <!-- Drafting -->
-    <section id="draft">
-      <h1>Draft Board</h1>
-      <p id="draftHints">Hint: Focus on positions or types your team needs.</p>
-      <div id="draftBoard"></div>
-    </section>
+<!-- Coaching -->
+<section id="coaching">
+  <h1>Coaching Staff</h1>
+  <div id="headCoachBox"></div>
+  <div id="assistantCoachesBox"></div>
+  <div id="scoutsBox"></div>
+  <div id="medicalBox"></div>
+  <div id="freeAgentCoachesBox"></div>
+</section>
 
-    <!-- Free Agency -->
-    <section id="freeAgency">
-      <h1>Free Agency</h1>
-      <div id="freeAgencyContent"></div>
-    </section>
+<!-- Drafting -->
+<section id="draft">
+  <h1>Draft Board</h1>
+  <p id="draftHints">Hint: Focus on positions or types your team needs.</p>
+  <div id="draftBoard"></div>
+</section>
 
-    <!-- Trade -->
-    <section id="trade">
-      <h1>Trade Machine</h1>
-      <div id="tradeYourTeam"></div>
-      <div id="tradeOtherTeams"></div>
-    </section>
+<!-- Free Agency -->
+<section id="freeAgency">
+  <h1>Free Agency</h1>
+  <div id="freeAgencyContent"></div>
+</section>
 
-    <!-- Team Stats -->
-    <section id="teamStats">
-      <h1>Team Stats</h1>
-      <div id="teamStatsTable"></div>
-    </section>
+<!-- Trade -->
+<section id="trade">
+  <h1>Trade Machine</h1>
+  <div id="tradeYourTeam"></div>
+  <div id="tradeOtherTeams"></div>
+</section>
 
-    <!-- Player Stats -->
-    <section id="playerStats">
-      <h1>Player Stats</h1>
-      <div id="playerStatsContent"></div>
-    </section>
+<!-- Team Stats -->
+<section id="teamStats">
+  <h1>Team Stats</h1>
+  <div id="teamStatsTable"></div>
+</section>
 
-    <!-- Awards -->
-    <section id="awards">
-      <h1>Awards</h1>
-      <div id="awardsContent"></div>
-    </section>
+<!-- Player Stats -->
+<section id="playerStats">
+  <h1>Player Stats</h1>
+  <div id="playerStatsContent"></div>
+</section>
 
-    <!-- Finals -->
-    <section id="finals">
-      <h1>Finals</h1>
-      <div id="finalsBracket"></div>
-      <div id="finalsStats"></div>
-    </section>
-  </main>
+<!-- Awards -->
+<section id="awards">
+  <h1>Awards</h1>
+  <div id="awardsContent"></div>
+</section>
 
-  <!-- JS Link -->
-  <script src="script.js"></script>
+<!-- Finals -->
+<section id="finals">
+  <h1>Finals</h1>
+  <div id="finalsBracket"></div>
+  <div id="finalsStats"></div>
+</section>
 
-  <!-- Placeholder Data Section -->
-  <script>
-    // --- Teams and Example Players ---
-    const players = [
-      { team: "Collingwood", name: "Nick Daicos", position: "MID", age: 19, salary: 900000, potential: { min: 92, max: 99 }, stats: { kick: 90, handball: 85, mark: 88, tackle: 82, speed: 90, stamina: 88, footyIQ: 94, clutch: 85, strength: 80, discipline: 90, rucking: 60 } },
-      { team: "Carlton", name: "Patrick Cripps", position: "MID", age: 27, salary: 1000000, potential: { min: 95, max: 99 }, stats: { kick: 92, handball: 88, mark: 85, tackle: 90, speed: 86, stamina: 90, footyIQ: 92, clutch: 88, strength: 87, discipline: 89, rucking: 65 } },
-      { team: "Essendon", name: "Zach Merrett", position: "MID", age: 26, salary: 850000, potential: { min: 92, max: 98 }, stats: { kick: 88, handball: 86, mark: 83, tackle: 85, speed: 87, stamina: 88, footyIQ: 90, clutch: 87, strength: 85, discipline: 88, rucking: 60 } },
-      { team: "Richmond", name: "Jack Riewoldt", position: "FF", age: 31, salary: 800000, potential: { min: 88, max: 95 }, stats: { kick: 85, handball: 80, mark: 92, tackle: 78, speed: 80, stamina: 82, footyIQ: 88, clutch: 90, strength: 86, discipline: 85, rucking: 55 } },
-      // Add other teams similarly...
-    ];
-
-    // --- Placeholder for Ladder Data ---
-    const ladderData = [
-      { pos: 1, team: "Collingwood", points: 0, percentage: 100 },
-      { pos: 2, team: "Carlton", points: 0, percentage: 100 },
-      { pos: 3, team: "Essendon", points: 0, percentage: 100 },
-      { pos: 4, team: "Richmond", points: 0, percentage: 100 },
-      // Continue for all 18 AFL teams
-    ];
-
-    // Placeholder for Fixtures and Lineups, you will populate this later
-    const fixtures = []; // Array of rounds -> games
-  </script>
+<script src="script.js"></script>
 </body>
 </html>
